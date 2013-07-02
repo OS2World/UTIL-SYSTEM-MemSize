@@ -1,0 +1,8 @@
+;
+;       SUOMI.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Finnish-language resources for MEMSIZE.'
+

@@ -1,0 +1,429 @@
+/****************************************************************** MAGYAR.RC
+ *                                                                          *
+ *       System Resources monitor resource definition file (MAGYAR)         *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_NLS
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "memsize.h"
+
+CODEPAGE 852
+
+RCDATA 1 {      // CodePage identifier(s) that can be used.
+  852, 850, 0
+}
+
+POINTER 1 "..\\memsize2.ico"
+BITMAP 1 "..\\memsize2.bmp"
+
+/****************************************************************************
+ * Months: janu†r, febru†r, m†rcius, †prilis, m†jus, j£nius,                *
+ *   j£lius, augusztus, szeptember, okt¢ber, november, december.            *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 0, 0, 240, 108, FS_DLGBORDER
+  {
+    CTEXT "System Resources 4.00"                    0, 10, 88, 220,  8
+    CTEXT "2001. j£lius 4."                          0, 10, 80, 220,  8
+    CONTROL "#1",                                    0,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "Rendszererãforr†s figyelã"                0, 10, 64, 220,  8
+    CTEXT "Szerzãi jog (C) Richard Papo, 1991-2001." 0, 10, 56, 220,  8
+    CTEXT "rpapo@mediaone.net"                       0, 10, 48, 220,  8
+    CTEXT "http://people.mw.mediaone.net/rpapo"      0, 10, 40, 220,  8
+    CTEXT "Magyar nyelv˚ verzi¢"                     0, 10, 32, 220,  8
+    DEFPUSHBUTTON "~OK"                         DID_OK,100,  8,  40, 16, WS_GROUP
+  }
+}
+
+MENU IDM_MENU
+{
+  MENUITEM "AlapÇrtelmezÇsek vissza†ll°t†sa",            IDM_RESET_DEFAULTS
+  MENUITEM "VezÇrlãelemek elrejtÇse\tAlt+H",      IDM_HIDE_CONTROLS
+  MENUITEM "Be†ll°t†sok...\tAlt+C",       IDM_CONFIGURE
+  MENUITEM "TerhelÇsmÇrã alaphelyzetbe",          IDM_RESETLOAD
+  MENUITEM "Reset Average Load\tAlt+R",       IDM_RESETAVERAGE
+  MENUITEM "Meghajt¢hib†k tîrlÇse",              IDM_RESETDRIVES
+  MENUITEM "Launch E-Mail Reader",       IDM_LAUNCHEMAILER
+  MENUITEM "M†sol†s\tCtrl+Ins",            IDM_COPY
+  MENUITEM SEPARATOR
+  MENUITEM "A programr¢l...",    IDM_ABOUT
+  MENUITEM "Seg°tsÇg\tF1",                  IDM_HELP, MIS_HELP
+  MENUITEM "Bez†r†s\tF3",                 IDM_EXIT
+}
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "Be†ll°t†sf†jl elÇrÇsi £tvonala...", IDD_PROFILE_PATH, 50, 100, 300, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR 
+  {
+    LTEXT "Add meg a be†ll°t†sokat tartalmaz¢ (INI) f†jl (meghajt¢t is", 0, 8, 48, 284, 8
+    LTEXT "tartalmaz¢) teljes elÇrÇsi £tvonal†t!",             0, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "~OK"       DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Esc = MÇgsem"      DID_CANCEL,          44, 10,  84, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1 = Seg°tsÇg"          0,                 132, 10,  76, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Be†ll°t†sok", IDD_CONFIGURE, 10, 10, 240, 180, FS_DLGBORDER, FCF_SYSMENU | FCF_SIZEBORDER | FCF_TITLEBAR | FCF_NOMOVEWITHOWNER | FCF_CLOSEBUTTON
+  {
+    CONTROL "",                                  IDD_CONFIG_NOTEBOOK,      0,  0, 240,180, WC_NOTEBOOK, WS_VISIBLE | BKS_BACKPAGESTR | BKS_MAJORTABTOP | BKS_ROUNDEDTABS | BKS_SOLIDBIND | BKS_STATUSTEXTLEFT | 
+        BKS_TABTEXTCENTER | BKS_TABBEDDIALOG 
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ITEMS
+{
+  DIALOG "", IDD_CONFIG_PAGE_ITEMS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Megjelen°tendã elemek",                                 0,   0, 122, 199,  8
+    LISTBOX                                         IDD_CONFIG_ITEMS,   0,   1, 199,121, LS_MULTIPLESEL | LS_HORZSCROLL
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS1
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS1, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    AUTOCHECKBOX "VezÇrlãelemek elrejtÇse",            IDD_CONFIG_HIDECONTROLS,   0, 120, 199, 10
+    AUTOCHECKBOX "Mindig l†that¢",                    IDD_CONFIG_FLOAT,   0, 110, 199, 10
+    AUTOCHECKBOX "Anim†ci¢",                       IDD_CONFIG_ANIMATE,   0, 100, 199, 10
+    AUTOCHECKBOX "Dialog Border",            IDD_CONFIG_DIALOGBORDER,   0,  90, 200, 10
+    AUTOCHECKBOX "T†bl†zat forma",                    IDD_CONFIG_TABLE,   0,  80, 199, 10
+    AUTOCHECKBOX "‡r†nkÇnti hangjelzÇs",                    IDD_CONFIG_CHIME,   0,  70, 199, 10
+    AUTOCHECKBOX "Show Disk Drives",           IDD_CONFIG_SHOWDRIVES,   0,  60, 200, 10 
+    AUTOCHECKBOX "T†voli meghajt¢k megjelen°tÇse", IDD_CONFIG_SHOWREMOTES,   0,  50, 199, 10
+    AUTOCHECKBOX "F†jlrendszernÇv megjelen°tÇse",  IDD_CONFIG_FSNAME,   0,  40, 199, 10
+    AUTOCHECKBOX "Lemezc°mke megjelen°tÇse",       IDD_CONFIG_DLABEL,   0,  30, 199, 10
+    AUTOCHECKBOX "M†sodpercek megjelen°tÇse",     IDD_CONFIG_SECONDS,   0,  20, 199, 10
+    AUTOCHECKBOX "Use Theseus/2",                 IDD_CONFIG_THESEUS,   0,  10, 200, 10
+    AUTOCHECKBOX "Center Clock",             IDD_CONFIG_CENTER_CLOCK,   0,   0, 200, 10
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS2
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS2, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "'K'ilob†jt kijelzÇs",                                     0,   0,  88, 140, 40
+    AUTORADIOBUTTON "~Soha",                  IDD_CONFIG_SHOWK_NEVER,   4, 110,  70, 10
+    AUTORADIOBUTTON ">= ~512K",            IDD_CONFIG_SHOWK_ABOVE512,   4, 100,  70, 10
+    AUTORADIOBUTTON "M~indig",               IDD_CONFIG_SHOWK_ALWAYS,   4,  90,  70, 10
+    AUTOCHECKBOX "K=~1024",                    IDD_CONFIG_SHOW_TRUEK,  74, 110,  62, 10
+    AUTOCHECKBOX "'~M'egab†jt",            IDD_CONFIG_SHOW_MEGABYTES,  74, 100,  62, 10
+    AUTOCHECKBOX "'~G'igab†jt",            IDD_CONFIG_SHOW_GIGABYTES,  74,  90,  62, 10
+
+    LTEXT "Megfigyelãsz†l priorit†sa",                                      0,   0,  74, 128,  8
+    CONTROL "",                                  IDD_CONFIG_PRIORITY, 138,  72,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "Friss°tÇsi idãkîz",                                        0,   0,  62, 130,  8
+    LTEXT "(tizedm†sodpercben)",                                        0,   0,  54, 130,  8
+    CONTROL "",                                     IDD_CONFIG_TIMER, 138,  56,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "Averaging interval",                                    0,   0,  46, 130,  8
+    LTEXT "(seconds)",                                             0,   0,  38, 130,  8
+    CONTROL "",                                   IDD_CONFIG_AVERAGE, 138,  40,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_COLORS
+{
+  DIALOG "", IDD_CONFIG_PAGE_COLORS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    CTEXT "Norm†l",                               IDD_CONFIG_NORMAL,   0,  96, 199, 30, DT_VCENTER
+    CTEXT "FigyelmeztetÇs",                      IDD_CONFIG_WARNING,   0,  63, 199, 30, DT_VCENTER
+    CTEXT "Hiba",                                  IDD_CONFIG_ERROR,   0,  30, 199, 30, DT_VCENTER
+    CTEXT "",                                        IDD_CONFIG_FONT,   0,   0, 200, 27, DT_VCENTER
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ANCHOR
+{
+  DIALOG "", IDD_CONFIG_PAGE_ANCHOR, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "",                                                   0,  10,  40,  88, 80
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BL,  10,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BR,  91,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TL,  10, 110,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TR,  91, 110,   8,  8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_DATEFMT
+{
+  DIALOG "", IDD_CONFIG_PAGE_DATEFMT, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    ENTRYFIELD "",                                  IDD_CONFIG_DATEFMT,  2,118, 196,  8, ES_MARGIN
+    LTEXT "Sample:",                                                 0,  0,106,  32,  8
+    LTEXT "",                                       IDD_CONFIG_DATESMP, 36,106, 164,  8
+    LTEXT "All text entered in the format is copied ",               0,  0, 94, 200,  8
+    LTEXT "to the result, except for the following  ",               0,  0, 86, 200,  8
+    LTEXT "special codes:                           ",               0,  0, 78, 200,  8
+    GROUPBOX "Date Formatting Codes",                                0,  0,  0, 200, 74
+    LISTBOX                                       IDD_CONFIG_DATECODES,  4,  4, 190, 62
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP31
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP31, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Server Name:",                                0,  0, 118, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPSERV,100, 118, 96, 8, ES_MARGIN
+    LTEXT "User Name:",                                  0,  0, 106, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPUSER,100, 106, 96, 8, ES_MARGIN
+    LTEXT "Password:",                                   0,  0,  94, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPSWD,100,  94, 96, 8, ES_MARGIN | ES_UNREADABLE
+    LTEXT "Port Number (opt):",                          0,  0,  82, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPORT,100,  82, 96, 8, ES_MARGIN
+    AUTOCHECKBOX "Force I.P. Address",  IDD_CONFIG_POPFORC,  0,  70,200, 8
+    AUTOCHECKBOX "Use APOP",            IDD_CONFIG_POPAPOP,  0,  58,200, 8
+    PUSHBUTTON "~Validate",             IDD_CONFIG_POPTEST,  5,  12, 60, 14
+    PUSHBUTTON "~Accept",               IDD_CONFIG_POPACPT, 70,  12, 60, 14
+    PUSHBUTTON "~Reset",                IDD_CONFIG_POPREST,135,  12, 60, 14
+    CTEXT "",                           IDD_CONFIG_POPSTAT,  0,   0,200, 8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP32
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP32, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Polling interval",                            0,  0, 118,110, 8
+    LTEXT "(seconds)",                                   0,  0, 110,110, 8
+    CONTROL "",                         IDD_CONFIG_POPPOLL,160, 112, 36, 8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+    LTEXT "E-mail Reader (full command line):",          0,  0,  98,200, 8
+    ENTRYFIELD "",                    IDD_CONFIG_POPREADER,  4,  86,192, 8, ES_MARGIN
+    AUTOCHECKBOX "Alert when mail arrives?", IDD_CONFIG_POPALERT,0,70,200,10
+    LTEXT "Mail Alert Sound (WAV):", IDD_CONFIG_POPWAVTEXT,  0,  58,200, 8
+    ENTRYFIELD "",                   IDD_CONFIG_POPWAVFILE,  4,  46,192, 8, ES_MARGIN
+  }
+}
+
+DLGTEMPLATE IDD_LABEL
+{
+  DIALOG "Elemtulajdons†gok", IDD_LABEL, 10, 10, 295, 120, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR 
+  {
+    LTEXT "AlapÇrtelmezett elemc°mke:",                     0,   8, 108, 142,  8
+    LTEXT "",                              IDD_LABEL_DEFLABEL, 152, 108, 110,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000
+
+    LTEXT "Èj elemc°mke:",                                  0,   8,  96, 110,  8
+    ENTRYFIELD "",                         IDD_LABEL_NEWLABEL, 152,  96, 110,  8, ES_MARGIN
+
+    GROUPBOX "Thresholds",                                  0,   4,  20, 220, 72
+
+    AUTOCHECKBOX "Enable",                   IDD_LABEL_ENABLE,   8,  74, 110,  8
+
+    LTEXT "FigyelmeztetÇs szint:",                             0,   8,  62, 120,  8
+    ENTRYFIELD "",                    IDD_LABEL_WARNING_VALUE,  16,  50,  84,  8, ES_MARGIN
+    SLIDER                           IDD_LABEL_WARNING_SLIDER, 152,  50, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    LTEXT "Hiba szint:",                               0,   8,  38, 100,  8
+    ENTRYFIELD "",                      IDD_LABEL_ERROR_VALUE,  16,  26,  84,  8, ES_MARGIN
+    SLIDER                             IDD_LABEL_ERROR_SLIDER, 152,  26, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    DEFPUSHBUTTON "~OK",                               DID_OK,   8,   4,  32, 12, WS_GROUP
+    CONTROL "~AlapÇrtelmezÇs"                      IDD_LABEL_DEFAULT,  44,   4,  84, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Esc = MÇgsem"                           DID_CANCEL, 134,   4,  74, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1 = Seg°tsÇg"                                       0, 212,   4,  76, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "Seg°tsÇg a 'System Resources'-hoz"
+  IDS_TITLE                            "System Resources"
+
+  IDS_RESET_DEFAULTS                   "AlapÇrtelmezÇsek vissza†ll°t†sa"
+  IDS_HIDE_CONTROLS                    "VezÇrlãelemek elrejtÇse\tAlt+H"
+  IDS_CONFIGURE                        "Be†ll°t†sok...\tAlt+C"
+  IDS_RESETLOAD                        "TerhelÇsmÇrã alaphelyzetbe"
+  IDS_RESETAVERAGE                     "Reset Average Load\tAlt+R"
+  IDS_RESETDRIVES                      "Meghajt¢hib†k tîrlÇse"
+  IDS_LAUNCHEMAILER                    "Launch E-Mail Reader"
+  IDS_COPY                             "M†sol†s\tCtrl+Ins"
+  IDS_ABOUT                            "A programr¢l..."
+  IDS_HELP                             "Seg°tsÇg\tF1"
+
+  IDS_CLOCK                            "D†tum/idã"
+  IDS_ELAPSED                          "özemidã"
+  IDS_MESSAGECOUNT                     "Messages Waiting"
+  IDS_MEMORY                           "Szabad fizikai mem¢ria"
+  IDS_VIRTUAL                          "Szabad virtu†lis mem¢ria"
+  IDS_SWAPSIZE                         "T†rcseref†jl mÇrete"
+  IDS_SWAPFREE                         "T†rcserÇhez rendelkezÇsre †ll"
+  IDS_SWAPSLACK                        "T†rcseref†jlb¢l szabad"
+  IDS_SPOOLSIZE                        "Zsilipf†jl mÇrete"
+  IDS_CPULOAD                          "CPU terhelÇs"
+  IDS_AVERAGELOAD                      "Average Load"
+  IDS_BATTERY                          "Akkumul†tor"
+  IDS_TASKCOUNT                        "Akt°v feladatok sz†ma"
+  IDS_PROCESSCOUNT                     "Folyamatok sz†ma"
+  IDS_THREADCOUNT                      "Sz†lak sz†ma"
+  IDS_TOTALFREE                        "ôsszes szabad lemezterÅlet"
+  IDS_DRIVE_FREE                       "%c: meghajt¢ szabad terÅlete"
+
+  IDS_DRIVEERROR                       "HIBA"
+
+  IDS_PARAMETERLIST                    "êrvÇnyes ind°t†si  paramÇterek:\n  RESET: Be†ll°t†sok alaphelyzetbe ind°t†s elãtt.  EXCLUDE:abc... A megadott a,b,c... meghajt¢k figyelmen k°vÅl hagy†sa."
+
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_EXCLUDE                    "EXCLUDE:"
+
+  IDS_ERROR_PRFOPENPROFILE             "HIBA: A be†ll°t†sf†jl nem nyithat¢ meg."
+  IDS_ERROR_CREATEHELP                 "HIBA: Seg°tsÇg nem ind°that¢.  Hibak¢d: %08lX."
+  IDS_ERROR_CREATEFRAME                "HIBA: A keretablak lÇtrehoz†sa sikertelen.  Hibak¢d: %08lX."
+  IDS_ERROR_WINREGISTERCLASS           "HIBA: '%s' ablakoszt†ly bejegyzÇse sikertelen.  Hibak¢d: %08lX."
+  IDS_ERROR_CREATECLIENT               "HIBA: Az ÅgyfÇlablak lÇtrehoz†sa sikertelen.  Hibak¢d: %08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "A DosGetCtryInfo h°v†s meghi£sult.  µllapot=%d."
+  IDS_ERROR_BADCODEPAGE                "HIBA: %i k¢dlap be†ll°t†sa sikertelen."
+
+  IDS_DAY                              "nap"
+  IDS_DAYS                             "nap"
+
+  IDS_DAYSOFWEEK                       "Vas HÇt KeddSze CsÅtPÇntSzo "
+  IDS_DATEFMT_DAY0                     "Sunday"
+  IDS_DATEFMT_DAY1                     "Monday"
+  IDS_DATEFMT_DAY2                     "Tuesday"
+  IDS_DATEFMT_DAY3                     "Wednesday"
+  IDS_DATEFMT_DAY4                     "Thursday"
+  IDS_DATEFMT_DAY5                     "Friday"
+  IDS_DATEFMT_DAY6                     "Saturday"
+
+  IDS_DATEFMT_MONS                     "JanFebMarAprMayJunJulAugSepOctNovDec"
+  IDS_DATEFMT_MONTH1                   "janu†r"
+  IDS_DATEFMT_MONTH2                   "febru†r"
+  IDS_DATEFMT_MONTH3                   "m†rcius"
+  IDS_DATEFMT_MONTH4                   "†prilis"
+  IDS_DATEFMT_MONTH5                   "m†jus"
+  IDS_DATEFMT_MONTH6                   "j£nius"
+  IDS_DATEFMT_MONTH7                   "j£lius"
+  IDS_DATEFMT_MONTH8                   "augusztus"
+  IDS_DATEFMT_MONTH9                   "szeptember"
+  IDS_DATEFMT_MONTH10                  "okt¢ber"
+  IDS_DATEFMT_MONTH11                  "november"
+  IDS_DATEFMT_MONTH12                  "december"
+
+  IDS_APM_ERROR                        "Nem elÇrhetã" // Not Applicable (Battery status not available)
+  IDS_APM_AC                           "H†l¢zat" // Alternating Current (Battery not in use)
+  IDS_APM_CHARGING                     "TîltÇs" // Battery Charging
+
+  IDS_CONFIG_PAGE_ITEMS                "Elemek"
+  IDS_CONFIG_PAGE_OPTIONS              "Be†ll°t†sok"
+  IDS_CONFIG_PAGE_COLORS               "Sz°nek"
+  IDS_CONFIG_PAGE_ANCHOR               "Ablakhorgony"
+  IDS_CONFIG_PAGE_DATEFMT              "Time/Date"
+  IDS_CONFIG_PAGE_POP3                 "E-Mail"
+
+  IDS_PAGE                             "oldal:"
+  IDS_OF                               "/"
+  IDS_CONFIG_FONT_TEXT                 "Font: %s"
+
+  IDS_POP_NOSERVER                     "Server not specified."
+  IDS_POP_NOUSERNAME                   "User name not specified."
+  IDS_POP_NOPASSWORD                   "Password not specified."
+  IDS_POP_HASMESSAGES                  "Connected.  %i messages waiting."
+  IDS_POP_HASONEMESSAGE                "Connected.  One message waiting."
+  IDS_POP_HASNOMESSAGES                "Connected.  No messages waiting."
+  IDS_POP_ERROR1                       "ERROR: WinSock not initialized."
+  IDS_POP_ERROR2                       "ERROR: Unable to create socket."
+  IDS_POP_ERROR3                       "ERROR: Unable to connect socket."
+  IDS_POP_ERROR4                       "ERROR: Server won't talk to us."
+  IDS_POP_ERROR5                       "ERROR: Cannot resolve address of mail server."
+  IDS_POP_ERROR6                       "ERROR: Unable to log into post office."
+  IDS_POP_ERROR7                       "ERROR: STAT command failed."
+  IDS_POP_ERRORX                       "Unknown POP3 error."
+  IDS_POP_TITLE                        "POP Error"
+  IDS_POP_OVERRIDE                     "Unable to contact server.  Save these parameters anyway?"
+
+  IDS_EXCEPTION  
+"A System Resources-ban s£lyos hiba keletkezett.  KÅldd el a(z) %s f†jlt a szerzãnek a Internet rpapo@mediaone.net c°mre!  ÷rd le, mit csin†lt†l Çppen a hiba bekîvetkeztekor!"
+}
+
+STRINGTABLE 
+{
+   IDS_DATECODES_00 "%a    Abbreviated weekday name"
+   IDS_DATECODES_01 "%A    Full weekday name"
+   IDS_DATECODES_02 "%b    Abbreviated month name"
+   IDS_DATECODES_03 "%B    Full month name"
+   IDS_DATECODES_04 "%c    Local Date & Time"
+   IDS_DATECODES_05 "%d    Day of month"
+   IDS_DATECODES_06 "%D    Date MM/DD/YY"
+   IDS_DATECODES_07 "%h    Local abbreviated month"
+   IDS_DATECODES_08 "%H    Hour (24h)"
+   IDS_DATECODES_09 "%I    Hour (12h)"
+   IDS_DATECODES_10 "%j    Day of year"
+   IDS_DATECODES_11 "%m    Month of year"
+   IDS_DATECODES_12 "%M    Minute"
+   IDS_DATECODES_13 "%p    Local AM/PM"
+   IDS_DATECODES_14 "%r    Time (12hr)"
+   IDS_DATECODES_15 "%S    Second"
+   IDS_DATECODES_16 "%T    Time (24hr)"
+   IDS_DATECODES_17 "%U    Week of year (Sunday first)"
+   IDS_DATECODES_18 "%w    Day of week"
+   IDS_DATECODES_19 "%W    Week of year (Monday first)"
+   IDS_DATECODES_20 "%x    Local Date"
+   IDS_DATECODES_21 "%X    Local Time"
+   IDS_DATECODES_22 "%y    Year of century"
+   IDS_DATECODES_23 "%Y    Year"
+   IDS_DATECODES_24 "%Z %z Time Zone"
+   IDS_DATECODES_25 "%%    %"
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Hiba a Seg°tsÇgben"
+  IDS_HMERR_EXTHELPUNDEFINED           "A Bãv°tett seg°tsÇg nincs defini†lva."
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "Nincs keretablak a l†ncban."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "êrvÇnytelen ablakhivatkoz†s t†rs°t†s."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "êrvÇnytelen seg°tsÇgpÇld†ny-t†rs°t†s."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "êrvÇnytelen ablakhivatkoz†s t†rs°t†s megszÅntetÇsÇhez."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "Nincs seg°tsÇgpÇld†ny az ablakl†ncban."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "êrvÇnytelen seg°tsÇgpÇld†ny."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "êrvÇnytelen alkalmaz†sablak-hivatkoz†s a lekÇrdezÇsben."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "A h°vott seg°tsÇgpÇld†ny ÇrvÇnytelen."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "A seg°tsÇgt†bla nincs defini†lva."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "A seg°tsÇgpÇld†ny nincs defini†lva."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "A seg°tsÇgbejegyzÇs nem tal†lhat¢."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "êrvÇnytelen seg°tsÇgalbejegyzÇs-mÇret."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "A seg°tsÇg-albejegyzÇs nem tal†lhat¢."
+  IDS_HMERR_INDEX_NOT_FOUND            "Nincs t†rgymutat¢ a kînyvt†rf†jlban."
+  IDS_HMERR_CONTENT_NOT_FOUND          "A tartalomjegyzÇk nem tal†lhat¢."
+  IDS_HMERR_OPEN_LIB_FILE              "A seg°tsÇgkînyvt†r megnyit†sa sikertelen."
+  IDS_HMERR_READ_LIB_FILE              "A seg°tsÇgkînyvt†r nem olvashat¢."
+  IDS_HMERR_CLOSE_LIB_FILE             "A seg°tsÇgkînyvt†r bez†r†sa sikertelen."
+  IDS_HMERR_INVALID_LIB_FILE           "A seg°tsÇgkînyvt†r form†tuma ÇrvÇnytelen."
+  IDS_HMERR_NO_MEMORY                  "KevÇs a mem¢ria."
+  IDS_HMERR_ALLOCATE_SEGMENT           "A szegmens lefoglal†sa sikertelen."
+  IDS_HMERR_FREE_MEMORY                "A mem¢ria felszabad°t†sa sikertelen."
+  IDS_HMERR_PANEL_NOT_FOUND            "A seg°tsÇgpanel nem tal†lhat¢."
+  IDS_HMERR_DATABASE_NOT_OPEN          "Nincs megnyitva a seg°tsÇg-adatb†zis."
+  IDS_HMERR_UNKNOWN                    "--- Ismeretlen hiba ---"
+  IDS_HELPMODE_FRAME                   "Keret"
+  IDS_HELPMODE_MENU                    "MenÅ"
+  IDS_HELPMODE_WINDOW                  "Ablak"
+  IDS_HELPMODE_UNKNOWN                 "Ismeretlen"
+  IDS_HELPSUBITEMNOTFOUND              "A seg°tsÇgaltÇma nem tal†lhat¢: M¢d='%s' TÇma=%u AltÇma=%u"
+}
+

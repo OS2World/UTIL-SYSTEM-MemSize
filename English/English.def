@@ -1,0 +1,8 @@
+;
+;       ENGLISH.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'English-language resources for MEMSIZE.'
+

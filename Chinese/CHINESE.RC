@@ -1,0 +1,429 @@
+/***************************************************************** CHINESE.RC
+ *                                                                          *
+ *       System Resources monitor resource definition file (CHINESE)        *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_NLS
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "memsize.h"
+
+CODEPAGE 938
+
+RCDATA 1 {      // CodePage identifier(s) that can be used.
+  938, 948, 950, 0
+}
+
+POINTER 1 "..\\memsize2.ico"
+BITMAP 1 "..\\memsize2.bmp"
+
+/****************************************************************************
+ * Months: January, February, March, April, May, June,                      *
+ *   July, August, September, October, November, December.                  *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 0, 0, 240, 108, FS_DLGBORDER
+  {
+    CTEXT "系統資源監視器 4.00"                      0, 10, 88, 220,  8
+    CTEXT "2001 年 07 月 04 日"                      0, 10, 80, 220,  8
+    CONTROL "#1",                                    0,  4, 72,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "系統資源監視程式"                         0, 10, 64, 220,  8
+    CTEXT "Copyright (C) Richard Papo, 1991-2001"    0, 10, 56, 220,  8
+    CTEXT "rpapo@mediaone.net"                       0, 10, 48, 220,  8
+    CTEXT "http://people.mw.mediaone.net/rpapo"      0, 10, 40, 220,  8
+    CTEXT "中文(BIG5)版本"                           0, 10, 32, 220,  8
+    DEFPUSHBUTTON "~OK"                         DID_OK,100,  8,  40, 16, WS_GROUP
+  }
+}
+
+MENU IDM_MENU
+{
+  MENUITEM "重設視窗設定",              IDM_RESET_DEFAULTS
+  MENUITEM "隱藏控制框\tAlt+H",         IDM_HIDE_CONTROLS
+  MENUITEM "設定...\tAlt+C",            IDM_CONFIGURE
+  MENUITEM "重設負載量計",              IDM_RESETLOAD
+  MENUITEM "Reset Average Load\tAlt+R", IDM_RESETAVERAGE
+  MENUITEM "重設磁碟機",                IDM_RESETDRIVES
+  MENUITEM "Launch E-Mail Reader",      IDM_LAUNCHEMAILER
+  MENUITEM "複製\tCtrl+Ins",            IDM_COPY
+  MENUITEM SEPARATOR
+  MENUITEM "產品資訊...",               IDM_ABOUT
+  MENUITEM "解說\tF1",                  IDM_HELP, MIS_HELP
+  MENUITEM "關閉\tF3",                  IDM_EXIT
+}
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "設定資料檔路徑...", IDD_PROFILE_PATH, 50, 100, 300, 52, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR | FCF_DBE_APPSTAT
+  {
+    LTEXT "請輸入欲存放資料 (INI) 檔的完整 (含磁碟) 路徑名稱。", 0, 8, 40, 284, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 280,  8, ES_MARGIN
+    DEFPUSHBUTTON "~OK"       DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "Esc=取消"       DID_CANCEL,           44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=解說"          0,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 280,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "設定", IDD_CONFIGURE, 10, 10, 230, 180, FS_DLGBORDER, FCF_SYSMENU | FCF_SIZEBORDER | FCF_TITLEBAR | FCF_NOMOVEWITHOWNER | FCF_CLOSEBUTTON | FCF_DBE_APPSTAT
+  {
+    CONTROL "",                                  IDD_CONFIG_NOTEBOOK,      0,  0, 230,180, WC_NOTEBOOK, WS_VISIBLE | BKS_BACKPAGESTR | BKS_MAJORTABTOP | BKS_ROUNDEDTABS | BKS_SOLIDBIND | BKS_STATUSTEXTLEFT | BKS_TABTEXTCENTER | BKS_TABBEDDIALOG
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ITEMS
+{
+  DIALOG "", IDD_CONFIG_PAGE_ITEMS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "顯示項目",                                              0,   0, 122, 199,  8
+    LISTBOX                                         IDD_CONFIG_ITEMS,   0,   1, 199,121, LS_MULTIPLESEL | LS_HORZSCROLL
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS1
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS1, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    AUTOCHECKBOX "隱藏控制框",               IDD_CONFIG_HIDECONTROLS,   0, 120, 200, 10
+    AUTOCHECKBOX "浮在最上方",                      IDD_CONFIG_FLOAT,   0, 110, 200, 10
+    AUTOCHECKBOX "動畫",                          IDD_CONFIG_ANIMATE,   0, 100, 200, 10
+    AUTOCHECKBOX "Dialog Border",            IDD_CONFIG_DIALOGBORDER,   0,  90, 200, 10
+    AUTOCHECKBOX "表格格式",                        IDD_CONFIG_TABLE,   0,  80, 200, 10
+    AUTOCHECKBOX "整點鐘響",                        IDD_CONFIG_CHIME,   0,  70, 200, 10
+    AUTOCHECKBOX "Show Disk Drives",           IDD_CONFIG_SHOWDRIVES,   0,  60, 200, 10 
+    AUTOCHECKBOX "顯示遠端磁碟",              IDD_CONFIG_SHOWREMOTES,   0,  50, 200, 10
+    AUTOCHECKBOX "顯示檔案系統名稱",               IDD_CONFIG_FSNAME,   0,  40, 200, 10
+    AUTOCHECKBOX "顯示磁碟標號",                   IDD_CONFIG_DLABEL,   0,  30, 200, 10
+    AUTOCHECKBOX "顯示秒數",                      IDD_CONFIG_SECONDS,   0,  20, 200, 10
+    AUTOCHECKBOX "Use Theseus/2",                 IDD_CONFIG_THESEUS,   0,  10, 200, 10
+    AUTOCHECKBOX "Center Clock",             IDD_CONFIG_CENTER_CLOCK,   0,   0, 200, 10
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS2
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS2, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "以 'K' 數顯示",                                      0,   0,  88, 140, 40
+    AUTORADIOBUTTON "不要",                   IDD_CONFIG_SHOWK_NEVER,   4, 110,  70, 10
+    AUTORADIOBUTTON ">= 512K 時",          IDD_CONFIG_SHOWK_ABOVE512,   4, 100,  70, 10
+    AUTORADIOBUTTON "總是",                  IDD_CONFIG_SHOWK_ALWAYS,   4,  90,  70, 10
+    AUTOCHECKBOX "K=~1024",                    IDD_CONFIG_SHOW_TRUEK,  74, 110,  62, 10
+    AUTOCHECKBOX "'M'egabytes",            IDD_CONFIG_SHOW_MEGABYTES,  74, 100,  62, 10
+    AUTOCHECKBOX "'~G'igabytes",           IDD_CONFIG_SHOW_GIGABYTES,  74,  90,  62, 10
+
+    LTEXT "監視優先權",                                            0,   0,  74, 110,  8
+    CONTROL "",                                  IDD_CONFIG_PRIORITY, 118,  72,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "計時器間隔",                                            0,   0,  62, 110,  8
+    LTEXT "(秒 x0.1)",                                             0,   0,  54, 110,  8
+    CONTROL "",                                     IDD_CONFIG_TIMER, 118,  56,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "Averaging interval",                                    0,   0,  46, 110,  8
+    LTEXT "(seconds)",                                             0,   0,  38, 110,  8
+    CONTROL "",                                   IDD_CONFIG_AVERAGE, 118,  40,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_COLORS
+{
+  DIALOG "", IDD_CONFIG_PAGE_COLORS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    CTEXT "正常",                                  IDD_CONFIG_NORMAL,   0,  96, 200, 30, DT_VCENTER
+    CTEXT "警告",                                 IDD_CONFIG_WARNING,   0,  63, 200, 30, DT_VCENTER
+    CTEXT "錯誤",                                   IDD_CONFIG_ERROR,   0,  30, 200, 30, DT_VCENTER
+    CTEXT "",                                        IDD_CONFIG_FONT,   0,   0, 200, 27, DT_VCENTER
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ANCHOR
+{
+  DIALOG "", IDD_CONFIG_PAGE_ANCHOR, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "",                                                   0,  10,  40,  88, 80
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BL,  10,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BR,  91,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TL,  10, 110,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TR,  91, 110,   8,  8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_DATEFMT
+{
+  DIALOG "", IDD_CONFIG_PAGE_DATEFMT, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    ENTRYFIELD "",                                  IDD_CONFIG_DATEFMT,  2,118, 196,  8, ES_MARGIN
+    LTEXT "Sample:",                                                 0,  0,106,  32,  8
+    LTEXT "",                                       IDD_CONFIG_DATESMP, 36,106, 164,  8
+    LTEXT "All text entered in the format is copied ",               0,  0, 94, 200,  8
+    LTEXT "to the result, except for the following  ",               0,  0, 86, 200,  8
+    LTEXT "special codes:                           ",               0,  0, 78, 200,  8
+    GROUPBOX "Date Formatting Codes",                                0,  0,  0, 200, 74
+    LISTBOX                                       IDD_CONFIG_DATECODES,  4,  4, 190, 62
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP31
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP31, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Server Name:",                                0,  0, 118, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPSERV,100, 118, 96, 8, ES_MARGIN
+    LTEXT "User Name:",                                  0,  0, 106, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPUSER,100, 106, 96, 8, ES_MARGIN
+    LTEXT "Password:",                                   0,  0,  94, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPSWD,100,  94, 96, 8, ES_MARGIN | ES_UNREADABLE
+    LTEXT "Port Number (opt):",                          0,  0,  82, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPORT,100,  82, 96, 8, ES_MARGIN
+    AUTOCHECKBOX "Force I.P. Address",  IDD_CONFIG_POPFORC,  0,  70,200, 8
+    AUTOCHECKBOX "Use APOP",            IDD_CONFIG_POPAPOP,  0,  58,200, 8
+    PUSHBUTTON "~Validate",             IDD_CONFIG_POPTEST,  5,  12, 60, 14
+    PUSHBUTTON "~Accept",               IDD_CONFIG_POPACPT, 70,  12, 60, 14
+    PUSHBUTTON "~Reset",                IDD_CONFIG_POPREST,135,  12, 60, 14
+    CTEXT "",                           IDD_CONFIG_POPSTAT,  0,   0,200, 8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP32
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP32, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Polling interval",                            0,  0, 118,110, 8
+    LTEXT "(seconds)",                                   0,  0, 110,110, 8
+    CONTROL "",                         IDD_CONFIG_POPPOLL,160, 112, 36, 8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+    LTEXT "E-mail Reader (full command line):",          0,  0,  98,200, 8
+    ENTRYFIELD "",                    IDD_CONFIG_POPREADER,  4,  86,192, 8, ES_MARGIN
+    AUTOCHECKBOX "Alert when mail arrives?", IDD_CONFIG_POPALERT,0,70,200,10
+    LTEXT "Mail Alert Sound (WAV):", IDD_CONFIG_POPWAVTEXT,  0,  58,200, 8
+    ENTRYFIELD "",                   IDD_CONFIG_POPWAVFILE,  4,  46,192, 8, ES_MARGIN
+  }
+}
+
+DLGTEMPLATE IDD_LABEL
+{
+  DIALOG "Item Attributes", IDD_LABEL, 10, 10, 230, 120, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR | FCF_DBE_APPSTAT
+  {
+    LTEXT "項目內定標題:",                                  0,   8, 108, 100,  8
+    LTEXT "",                              IDD_LABEL_DEFLABEL, 112, 108, 110,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000
+
+    LTEXT "項目新標題:",                                    0,   8,  96, 100,  8
+    ENTRYFIELD "",                         IDD_LABEL_NEWLABEL, 112,  96, 110,  8, ES_MARGIN
+
+    GROUPBOX "Thresholds",                                  0,   4,  20, 220, 72
+
+    AUTOCHECKBOX "Enable",                   IDD_LABEL_ENABLE,   8,  74, 110,  8
+
+    LTEXT "警告等級:",                                      0,   8,  62, 100,  8
+    ENTRYFIELD "",                    IDD_LABEL_WARNING_VALUE,  16,  50,  84,  8, ES_MARGIN
+    SLIDER                           IDD_LABEL_WARNING_SLIDER, 112,  50, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    LTEXT "錯誤等級:",                                      0,   8,  38, 100,  8
+    ENTRYFIELD "",                      IDD_LABEL_ERROR_VALUE,  16,  26,  84,  8, ES_MARGIN
+    SLIDER                             IDD_LABEL_ERROR_SLIDER, 112,  26, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    DEFPUSHBUTTON "~OK",                               DID_OK,   8,   4,  32, 12, WS_GROUP
+    CONTROL "~內定值"                       IDD_LABEL_DEFAULT,  44,   4,  56, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Esc=取消"                             DID_CANCEL, 104,   4,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=解說"                                       0, 172,   4,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "'系統資源監視器' 解說設施"
+  IDS_TITLE                            "系統資源監視器"
+
+  IDS_RESET_DEFAULTS                   "重設視窗設定"
+  IDS_HIDE_CONTROLS                    "隱藏控制框\tAlt+H"
+  IDS_CONFIGURE                        "設定...\tAlt+C"
+  IDS_RESETLOAD                        "重設負載量計"
+  IDS_RESETAVERAGE                     "Reset Average Load\tAlt+R"
+  IDS_RESETDRIVES                      "重設磁碟機"
+  IDS_LAUNCHEMAILER                    "Launch E-Mail Reader"
+  IDS_COPY                             "複製\tCtrl+Ins"
+  IDS_ABOUT                            "關於..."
+  IDS_HELP                             "解說\tF1"
+
+  IDS_CLOCK                            "日期/時間"
+  IDS_ELAPSED                          "經過時間"
+  IDS_MESSAGECOUNT                     "Messages Waiting"
+  IDS_MEMORY                           "剩餘實體記憶體"
+  IDS_VIRTUAL                          "剩餘虛擬記憶體"
+  IDS_SWAPSIZE                         "記憶體交換檔大小"
+  IDS_SWAPFREE                         "剩餘可交換磁碟空間"
+  IDS_SWAPSLACK                        "交換檔中未使用空間"
+  IDS_SPOOLSIZE                        "排存器檔案大小"
+  IDS_CPULOAD                          "CPU 負載"
+  IDS_AVERAGELOAD                      "Average Load"
+  IDS_BATTERY                          "電池"
+  IDS_TASKCOUNT                        "執行中程式件數"
+  IDS_PROCESSCOUNT                     "執行中工作件數"
+  IDS_THREADCOUNT                      "執行中工作緒數目"
+  IDS_TOTALFREE                        "總剩餘磁碟空間"
+  IDS_DRIVE_FREE                       "%c: 磁碟剩餘空間"
+
+  IDS_DRIVEERROR                       "錯 誤"
+
+  IDS_PARAMETERLIST                    "可用的起始參數:\n"
+                                       "  RESET: 起始前重設資料檔。"
+                                       "  EXCLUDE:abc... 排除指定的磁碟a,b,c..."
+
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_EXCLUDE                    "EXCLUDE:"
+
+  IDS_ERROR_PRFOPENPROFILE             "錯誤: 無法開啟資料檔。"
+  IDS_ERROR_CREATEHELP                 "錯誤: 無法建立解說實例。  代碼 %08lX。"
+  IDS_ERROR_CREATEFRAME                "錯誤: 無法建立視窗邊框。  代碼 %08lX。"
+  IDS_ERROR_WINREGISTERCLASS           "錯誤: 無法註冊視窗類別 '%s'。  代碼 %08lX。"
+  IDS_ERROR_CREATECLIENT               "錯誤: 無法建立視窗。  代碼 %08lX。"
+  IDS_ERROR_DOSGETCTRYINFO             "DosGetCtryInfo 呼叫失敗。  狀態=%d。"
+  IDS_ERROR_BADCODEPAGE                "錯誤: 無法設定字碼頁 %i。"
+
+  IDS_DAY                              "天"
+  IDS_DAYS                             "天"
+
+  IDS_DAYSOFWEEK                       "週日週一週二週三週四週五週六"
+  IDS_DATEFMT_DAY0                     "Sunday"
+  IDS_DATEFMT_DAY1                     "Monday"
+  IDS_DATEFMT_DAY2                     "Tuesday"
+  IDS_DATEFMT_DAY3                     "Wednesday"
+  IDS_DATEFMT_DAY4                     "Thursday"
+  IDS_DATEFMT_DAY5                     "Friday"
+  IDS_DATEFMT_DAY6                     "Saturday"
+
+  IDS_DATEFMT_MONS                     "JanFebMarAprMayJunJulAugSepOctNovDec"
+  IDS_DATEFMT_MONTH1                   "January"
+  IDS_DATEFMT_MONTH2                   "February"
+  IDS_DATEFMT_MONTH3                   "March"
+  IDS_DATEFMT_MONTH4                   "April"
+  IDS_DATEFMT_MONTH5                   "May"
+  IDS_DATEFMT_MONTH6                   "June"
+  IDS_DATEFMT_MONTH7                   "July"
+  IDS_DATEFMT_MONTH8                   "August"
+  IDS_DATEFMT_MONTH9                   "September"
+  IDS_DATEFMT_MONTH10                  "October"
+  IDS_DATEFMT_MONTH11                  "November"
+  IDS_DATEFMT_MONTH12                  "December"
+
+  IDS_APM_ERROR                        "N/A" // 無法應用（無法取得電池狀態）
+  IDS_APM_AC                           "A/C" // 交流電（未使用電池）
+  IDS_APM_CHARGING                     "充電中" // 電池充電中
+
+  IDS_CONFIG_PAGE_ITEMS                "顯示項目"
+  IDS_CONFIG_PAGE_OPTIONS              "選項"
+  IDS_CONFIG_PAGE_COLORS               "顏色"
+  IDS_CONFIG_PAGE_ANCHOR               "視窗固定點"
+  IDS_CONFIG_PAGE_DATEFMT              "Time/Date"
+  IDS_CONFIG_PAGE_POP3                 "E-Mail"
+
+  IDS_PAGE                             "頁"
+  IDS_OF                               "/"
+  IDS_CONFIG_FONT_TEXT                 "Font: %s"
+
+  IDS_POP_NOSERVER                     "Server not specified."
+  IDS_POP_NOUSERNAME                   "User name not specified."
+  IDS_POP_NOPASSWORD                   "Password not specified."
+  IDS_POP_HASMESSAGES                  "Connected.  %i messages waiting."
+  IDS_POP_HASONEMESSAGE                "Connected.  One message waiting."
+  IDS_POP_HASNOMESSAGES                "Connected.  No messages waiting."
+  IDS_POP_ERROR1                       "ERROR: WinSock not initialized."
+  IDS_POP_ERROR2                       "ERROR: Unable to create socket."
+  IDS_POP_ERROR3                       "ERROR: Unable to connect socket."
+  IDS_POP_ERROR4                       "ERROR: Server won't talk to us."
+  IDS_POP_ERROR5                       "ERROR: Cannot resolve address of mail server."
+  IDS_POP_ERROR6                       "ERROR: Unable to log into post office."
+  IDS_POP_ERROR7                       "ERROR: STAT command failed."
+  IDS_POP_ERRORX                       "Unknown POP3 error."
+  IDS_POP_TITLE                        "POP Error"
+  IDS_POP_OVERRIDE                     "Unable to contact server.  Save these parameters anyway?"
+
+  IDS_EXCEPTION  "系統資源監視器發生嚴重的錯誤。  "
+                 "請將 %s 檔送至 Internet rpapo@mediaone.net 給作者。  "
+                 "請描述當時您在系統上所嘗試要做的事情。  "
+}
+
+STRINGTABLE 
+{
+   IDS_DATECODES_00 "%a    Abbreviated weekday name"
+   IDS_DATECODES_01 "%A    Full weekday name"
+   IDS_DATECODES_02 "%b    Abbreviated month name"
+   IDS_DATECODES_03 "%B    Full month name"
+   IDS_DATECODES_04 "%c    Local Date & Time"
+   IDS_DATECODES_05 "%d    Day of month"
+   IDS_DATECODES_06 "%D    Date MM/DD/YY"
+   IDS_DATECODES_07 "%h    Local abbreviated month"
+   IDS_DATECODES_08 "%H    Hour (24h)"
+   IDS_DATECODES_09 "%I    Hour (12h)"
+   IDS_DATECODES_10 "%j    Day of year"
+   IDS_DATECODES_11 "%m    Month of year"
+   IDS_DATECODES_12 "%M    Minute"
+   IDS_DATECODES_13 "%p    Local AM/PM"
+   IDS_DATECODES_14 "%r    Time (12hr)"
+   IDS_DATECODES_15 "%S    Second"
+   IDS_DATECODES_16 "%T    Time (24hr)"
+   IDS_DATECODES_17 "%U    Week of year (Sunday first)"
+   IDS_DATECODES_18 "%w    Day of week"
+   IDS_DATECODES_19 "%W    Week of year (Monday first)"
+   IDS_DATECODES_20 "%x    Local Date"
+   IDS_DATECODES_21 "%X    Local Time"
+   IDS_DATECODES_22 "%y    Year of century"
+   IDS_DATECODES_23 "%Y    Year"
+   IDS_DATECODES_24 "%Z %z Time Zone"
+   IDS_DATECODES_25 "%%    %"
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "解說管理員錯誤"
+  IDS_HMERR_EXTHELPUNDEFINED           "未定義更進一步解說。"
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "沒有鏈結之視窗邊框。"
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "不正常之視窗處理關聯。"
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "不正常之解說實例關聯。"
+  IDS_HMERR_INVALID_DESTROY_HELP_      "不正常之視窗處理取消關聯。"
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "視窗鏈結中無解睿實例。"
+  IDS_HMERR_INVALID_HELP_INSTANCE      "不正常之解說實例處理。"
+  IDS_HMERR_INVALID_QUERY_APP_WND      "不正常之應用程式查詢中視窗處理。"
+  IDS_HMERR_HELP_INST_CALLED_INVA      "不正常解說實例呼叫。"
+  IDS_HMERR_HELPTABLE_UNDEFINE         "未定義解說表。"
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "未定義解說實例。"
+  IDS_HMERR_HELPITEM_NOT_FOUND         "找不到解說項目。"
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "不正常之解說子項目大小。"
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "找不到解說子項目。"
+  IDS_HMERR_INDEX_NOT_FOUND            "解說資料檔中無索引。"
+  IDS_HMERR_CONTENT_NOT_FOUND          "找不到內容目錄。"
+  IDS_HMERR_OPEN_LIB_FILE              "無法開啟解說資料檔。"
+  IDS_HMERR_READ_LIB_FILE              "無法閱讀解說資料檔。"
+  IDS_HMERR_CLOSE_LIB_FILE             "無法關閉解說資料檔。"
+  IDS_HMERR_INVALID_LIB_FILE           "解說資料檔中有不正常格式。"
+  IDS_HMERR_NO_MEMORY                  "記憶體不足。"
+  IDS_HMERR_ALLOCATE_SEGMENT           "無法定位記憶體區段。"
+  IDS_HMERR_FREE_MEMORY                "無法釋放記憶體。"
+  IDS_HMERR_PANEL_NOT_FOUND            "找不到解說面板。"
+  IDS_HMERR_DATABASE_NOT_OPEN          "解說資料庫未開啟。"
+  IDS_HMERR_UNKNOWN                    "--- 未知錯誤 ---"
+  IDS_HELPMODE_FRAME                   "邊框"
+  IDS_HELPMODE_MENU                    "選單"
+  IDS_HELPMODE_WINDOW                  "視窗"
+  IDS_HELPMODE_UNKNOWN                 "未知"
+  IDS_HELPSUBITEMNOTFOUND              "找不到解說子項目: 模式='%s' 主題=%u 副主題=%u"
+}

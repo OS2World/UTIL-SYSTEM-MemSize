@@ -1,0 +1,8 @@
+;
+;       FRANCAIS.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Ressources en langue fran‡aise pour MEMSIZE.'
+

@@ -1,0 +1,8 @@
+;
+;   BPORTUGU.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Brazilian Portuguese-language resources for MEMSIZE.'
+

@@ -1,0 +1,8 @@
+;
+;       ITALIANO.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Italian-language resources for MEMSIZE.'
+

@@ -1,0 +1,79 @@
+/**************************************************************** ENGLISH.RCW
+ *                                                                          *
+ *       System Resources monitor resource definition file (ENGLISH)        *
+ *                                                                          *
+ ****************************************************************************/
+
+#include <Windows.h>
+
+#include "memsize.h"
+
+1 POINTER "..\\memsizew.ico"
+1 BITMAP "..\\memsizew.bmp"
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "'System Resources' Help Facility"
+  IDS_TITLE                            "System Resources"
+
+  IDS_RESET_DEFAULTS                   "~Reset Defaults"
+  IDS_HIDE_CONTROLS                    "~Hide Controls\tAlt+H"
+  IDS_CONFIGURE                        "~Configure...\tAlt+C"
+  IDS_RESETLOAD                        "Reset ~Load Meter"
+  IDS_RESETAVERAGE                     "Reset ~Average Load\tAlt+R"
+  IDS_RESETDRIVES                      "Reset ~Drives"
+  IDS_COPY                             "Copy\tCtrl+Ins"
+  IDS_ABOUT                            "~Product Information..."
+  IDS_HELP                             "Help\tF1"
+
+  IDS_CLOCK                            "Date/Time"
+  IDS_ELAPSED                          "Elapsed Time"
+  IDS_MEMORY                           "Physical memory free"
+  IDS_VIRTUAL                          "Virtual memory free"
+  IDS_SWAPSIZE                         "Swap-file size"
+  IDS_SWAPFREE                         "Available swap space"
+  IDS_SWAPSLACK                        "Unused swap space"
+  IDS_SPOOLSIZE                        "Spool-file size"
+  IDS_CPULOAD                          "CPU Load"
+  IDS_AVERAGELOAD                      "Average Load"
+  IDS_BATTERY                          "Battery"
+  IDS_TASKCOUNT                        "Active task count"
+  IDS_PROCESSCOUNT                     "Process count"
+  IDS_THREADCOUNT                      "Thread count"
+  IDS_TOTALFREE                        "Total free disk space"
+  IDS_DRIVE_FREE                       "Drive %c: free space"
+
+  IDS_DRIVEERROR                       "ERROR"
+
+  IDS_PARAMETERLIST                    "Valid startup parameters:\n  RESET: Reset profile before starting.\n  EXCLUDE:abc... Exclude specified drives a,b,c..."
+
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_EXCLUDE                    "EXCLUDE:"
+
+  IDS_ERROR_PRFOPENPROFILE             "ERROR: Unable to open profile file."
+  IDS_ERROR_CREATEHELP                 "ERROR: Unable to create help instance.  Code %08lX."
+  IDS_ERROR_CREATEFRAME                "ERROR: Unable to create frame window.  Code %08lX."
+  IDS_ERROR_WINREGISTERCLASS           "ERROR: Unable to register window class '%s'.  Code %08lX."
+  IDS_ERROR_CREATECLIENT               "ERROR: Unable to create client window.  Code %08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "DosGetCtryInfo call failed.  Status=%d."
+  IDS_ERROR_BADCODEPAGE                "ERROR: Unable to set code page %i."
+
+  IDS_DAY                              "day"
+  IDS_DAYS                             "days"
+  IDS_DAYSOFWEEK                       "SunMonTueWedThuFriSat"
+
+  IDS_APM_ERROR                        "N/A" // Not Applicable (Battery status not available)
+  IDS_APM_AC                           "A/C" // Alternating Current (Battery not in use)
+  IDS_APM_CHARGING                     "Charging" // Battery Charging
+
+  IDS_CONFIG_PAGE_ITEMS                "Items"
+  IDS_CONFIG_PAGE_OPTIONS              "Options"
+  IDS_CONFIG_PAGE_COLORS               "Colors"
+  IDS_CONFIG_PAGE_ANCHOR               "Anchor"
+
+  IDS_PAGE                             "Page"
+  IDS_OF                               "of"
+
+  IDS_EXCEPTION  "System Resources has had a serious error.  Please send the file %s to the author at Internet rpapo@mediaone.net.  Please describe what you were trying to do with your system at the time."
+}
+

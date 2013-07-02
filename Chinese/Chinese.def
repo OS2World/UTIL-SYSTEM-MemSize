@@ -1,0 +1,8 @@
+;
+;       CHINESE.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Chinese-language resources for MEMSIZE.'
+

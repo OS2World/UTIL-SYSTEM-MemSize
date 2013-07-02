@@ -1,0 +1,394 @@
+# Makefile for use with WATCOM C/C++
+
+.SILENT
+.ERASE
+.EXTENSIONS:
+.EXTENSIONS: .exe .dll .def
+.EXTENSIONS: .obj .cpp .c .asm .h
+.EXTENSIONS: .res .rc .ico .bmp
+.EXTENSIONS: .inf .hlp .ipf
+
+.asm:..
+.bmp:..
+.c:..
+.cpp:..
+.def:..
+.h:..
+.ico:..
+.ipf:..
+.rc:..
+
+EXE_DESTINATION = ..
+CFLAGS = /4s /bm /of+ /os /w4 /zp1 /zq /i=.. $(%CPP_OPTIONS) /bt=$(%SYSTEM)
+CFLAGS_EXT = /ee /ep /en
+
+ALL : MEMSIZE2.EXE &
+      SNPSHOT2.EXE &
+      BPortugu Catala Chinese Dansk Deutsch English Espanol Francais Italiano Japanese Magyar Norsk Suomi &
+      .SYMBOLIC
+    %NULL
+
+{.}.asm.obj : .AUTODEPEND
+    Echo Building $[* . . .
+    wasm -bt=$(%SYSTEM) -q $[*.asm
+
+{.}.c.obj : .AUTODEPEND
+    Echo Building $[* . . .
+    wcc386 $(CFLAGS) $[*.c
+
+{.}.cpp.obj : .AUTODEPEND
+    Echo Building $[* . . .
+    wpp386 $(CFLAGS) $(CFLAGS_EXT) $[*.cpp
+
+{.}.rc.res : .AUTODEPEND
+    Echo Building resources . . .
+    $(%RC) -r $(%RCFLAGS) $[*.rc $[&.res
+
+{.}.hlp.inf :
+    If Exist $[*.inf Erase $[*.inf
+    HLP2INF $[*.hlp
+
+OBJS = CANVAS.OBJ &
+    CHKDRIVE.OBJ &
+    CONFIG.OBJ &
+    COUNTRY.OBJ &
+    DATEFMT.OBJ &
+    DDE.OBJ &
+    DEBUG.OBJ &
+    DIALOG.OBJ &
+    EVENT.OBJ &
+    EXCEPT.OBJ &
+    FTRACK.obj &
+    HELPWIN.OBJ &
+    INIDATA.OBJ &
+    ITEMS.OBJ &
+    MD5.OBJ &
+    MEMSIZE.OBJ &
+    MODULE.OBJ &
+    MUTEX.OBJ &
+    MUX.OBJ &
+    POP.OBJ &
+    PROC.OBJ &
+    PROFILE.OBJ &
+    PROFILE2.OBJ &
+    RECTANGL.OBJ &
+    RESTRING.OBJ &
+    SUPPORT.OBJ &
+    SYSTEM.OBJ &
+    THREAD.OBJ &
+    WINDOW.OBJ
+
+MEMSIZE2.exe : $(OBJS) ..\MakeFile.os2 MEMSIZE2.lnk MEMSIZE2.res
+    Echo Linking $^& . . .
+    wlink @$^*.lnk
+    Echo Attaching resources . . .
+    $(%RC) $^&.res $^&.exe
+    copy $^&.exe $(EXE_DESTINATION)
+
+EXCEPT.obj : EXCEPT.cpp .AUTODEPEND
+    Echo Building $[* . . .
+    wcl386 $(CFLAGS) /c $[*.cpp
+
+MEMSIZE2.lnk : ..\MakeFile.os2
+    %create $^@
+    %append $^@ system os2v2_pm
+    %append $^@ name $^&
+    %append $^@ option map
+    %append $^@ option verbose
+    %append $^@ option caseexact
+    %append $^@ option stack=128K
+    %append $^@ library OS2386
+    %append $^@ library OS2286
+    %append $^@ import DOSQPROCSTATUS DOSCALL1.154
+    %append $^@ import DOSQUERYMODFROMEIP DOSCALL1.360
+    %append $^@ import DosQuerySysState DOSCALLS.368
+    for %i in ($(OBJS)) do %append $^@ file %i
+
+OBJS2 = CHKDRIVE.OBJ &
+    COUNTRY.OBJ &
+    DATEFMT.OBJ &
+    DEBUG.OBJ &
+    EVENT.OBJ &
+    EXCEPT.OBJ &
+    FTRACK.obj &
+    INIDATA.OBJ &
+    MODULE.OBJ &
+    MUTEX.OBJ &
+    MUX.OBJ &
+    PROFILE.OBJ &
+    RESTRING.OBJ &
+    SNAPSHOT.OBJ &
+    SYSTEM.OBJ &
+    THREAD.OBJ 
+
+SNPSHOT2.exe : $(OBJS2) SNPSHOT2.lnk
+    Echo Linking $^& . . .
+    wlink @$^*.lnk
+    copy $^&.exe $(EXE_DESTINATION)
+
+SNPSHOT2.lnk : ..\MakeFile.os2
+    %create $^@
+    %append $^@ name $^&
+    %append $^@ system os2v2
+    %append $^@ option map
+    %append $^@ option verbose
+    %append $^@ option caseexact
+    %append $^@ option stack=128K
+    %append $^@ library OS2386
+    %append $^@ library OS2286
+    %append $^@ import DOSQPROCSTATUS DOSCALL1.154
+    %append $^@ import DOSQUERYMODFROMEIP DOSCALL1.360
+    %append $^@ import DosQuerySysState DOSCALLS.368
+    for %i in ($(OBJS2)) do %append $^@ file %i
+
+# Stub for all resource DLLs.
+
+Dll.obj : Dll.asm
+    wasm $[*
+
+
+# Brazilian Portuguese language resources.
+
+BPortugu: BPortugu.dll BPortugu.hlp BPortugu.inf .SYMBOLIC
+
+BPortugu.hlp: BPortugu.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:55 /C:850 /L:PTB $[*.ipf
+
+BPortugu.dll: BPortugu.def BPortugu.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+BPortugu.res: BPortugu.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 55 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Catalan language resources.
+
+Catala: Catala.dll Catala.hlp Catala.inf .SYMBOLIC
+
+Catala.hlp: Catala.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:34 /C:850 /L:ESP $[*.ipf
+
+Catala.dll: Catala.def Catala.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Catala.res: Catala.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 34 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Chinese language resources.
+
+Chinese: Chinese.dll Chinese.hlp Chinese.inf .SYMBOLIC
+
+Chinese.hlp: Chinese.ipf MEMSIZE.H MEMSIZE2.BMP
+  Copy $(%IPFC)\APSYMBOL.APS $(%IPFC)\DEFAULT.APS
+  Copy $(%IPFC)\APSY0938.APS $(%IPFC)\APSYMBOL.APS
+  ipfcomp /D:88 /C:938 /L:CHT $[*.ipf
+  Copy $(%IPFC)\DEFAULT.APS $(%IPFC)\APSYMBOL.APS
+  Erase $(%IPFC)\DEFAULT.APS
+
+Chinese.dll: Chinese.def Chinese.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Chinese.res: Chinese.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 88 -cp 938 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Danish language resources.
+
+Dansk: Dansk.dll Dansk.hlp Dansk.inf .SYMBOLIC
+
+Dansk.hlp: Dansk.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:45 /C:850 /L:DAN $[*.ipf
+
+Dansk.dll: Dansk.def Dansk.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Dansk.res: Dansk.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 45 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# German language resources.
+
+Deutsch: Deutsch.dll Deutsch.hlp Deutsch.inf .SYMBOLIC
+
+Deutsch.dll: Deutsch.def Deutsch.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Deutsch.res: Deutsch.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 49 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+Deutsch.hlp: Deutsch.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:49 /C:850 /L:DEU $[*.ipf
+
+
+# English-language resources.
+
+English : English.dll English.hlp English.inf .SYMBOLIC
+
+English.hlp : English.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:1 /C:850 /L:ENU $[*.ipf
+
+English.dll: English.def English.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+English.res : English.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 1 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Spanish language resources.
+
+Espanol: Espanol.dll Espanol.hlp Espanol.inf .SYMBOLIC
+
+Espanol.hlp: Espanol.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:34 /C:850 /L:ESP $[*.ipf
+
+Espanol.dll: Espanol.def Espanol.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Espanol.res: Espanol.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 34 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# French language resources.
+
+Francais: Francais.dll Francais.hlp Francais.inf .SYMBOLIC
+
+Francais.hlp: Francais.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:33 /C:850 /L:FRA $[*.ipf
+
+Francais.dll: Francais.def Francais.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Francais.res: Francais.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 33 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Italian language resources.
+
+Italiano: Italiano.dll Italiano.hlp Italiano.inf .SYMBOLIC
+
+Italiano.hlp: Italiano.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:39 /C:850 /L:ITA $[*.ipf
+
+Italiano.dll: Italiano.def Italiano.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Italiano.res: Italiano.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 39 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Japanese language resources.
+
+Japanese: Japanese.dll Japanese.hlp Japanese.inf .SYMBOLIC
+
+Japanese.hlp: Japanese.ipf MEMSIZE.H MEMSIZE2.BMP
+  Copy $(%IPFC)\APSYMBOL.APS $(%IPFC)\DEFAULT.APS
+  Copy $(%IPFC)\APSY0932.APS $(%IPFC)\APSYMBOL.APS
+  ipfcomp /D:81 /C:932 /L:JPN $[*.ipf
+  Copy $(%IPFC)\DEFAULT.APS $(%IPFC)\APSYMBOL.APS
+  Erase $(%IPFC)\DEFAULT.APS
+
+Japanese.dll: Japanese.def Japanese.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Japanese.res: Japanese.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 81 -cp 932 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Hungarian language resources.
+
+Magyar: Magyar.dll Magyar.hlp Magyar.inf .SYMBOLIC
+
+Magyar.hlp: Magyar.ipf MEMSIZE.H MEMSIZE2.BMP
+  Copy $(%IPFC)\APSYMBOL.APS $(%IPFC)\DEFAULT.APS
+  Copy $(%IPFC)\APSY0852.APS $(%IPFC)\APSYMBOL.APS
+  ipfcomp /D:36 /C:852 /L:HUN $[*.ipf
+  Copy $(%IPFC)\DEFAULT.APS $(%IPFC)\APSYMBOL.APS
+  Erase $(%IPFC)\DEFAULT.APS
+
+Magyar.dll: Magyar.def Magyar.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Magyar.res: Magyar.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 36 -cp 852 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Norwegian language resources.
+
+Norsk: Norsk.dll Norsk.hlp Norsk.inf .SYMBOLIC
+
+Norsk.hlp: Norsk.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:47 /C:850 /L:NOR $[*.ipf
+
+Norsk.dll: Norsk.def Norsk.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Norsk.res: Norsk.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 47 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+
+
+# Finnish language resources.
+
+Suomi: Suomi.dll Suomi.hlp Suomi.inf .SYMBOLIC
+
+Suomi.hlp: Suomi.ipf MEMSIZE.H MEMSIZE2.BMP
+  ipfcomp /D:358 /C:850 /L:FIN $[*.ipf
+
+Suomi.dll: Suomi.def Suomi.res dll.obj
+  link386 /nologo dll, $^&.dll /align:16, nul,, $[*.def ;
+  $(%RC) $^&.res $^&.dll
+  eautil /s $^&.dll
+  erase eas\*.dll
+  rd eas
+
+Suomi.res: Suomi.rc MEMSIZE.H MEMSIZE2.BMP MEMSIZE2.ICO
+  $(%RC) -cc 358 -cp 850 $(%RCFLAGS) -r $[*.rc $^&.res
+

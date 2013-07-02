@@ -1,0 +1,8 @@
+;
+;       HUNGARY.DLL module definition file
+;
+
+LIBRARY MEMSIZE2
+
+DESCRIPTION 'Hungarian-language resources for MEMSIZE.'
+

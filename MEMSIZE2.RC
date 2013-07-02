@@ -1,0 +1,69 @@
+/**************************************************************** MEMSIZE2.RC
+ *                                                                          *
+ *           System Resources monitor resource definition file              *
+ *                                                                          *
+ *          This file contains language-independent definitions.            *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#include <os2.h>
+
+#include "memsize.h"
+
+POINTER ID_MAIN "..\\MEMSIZE2.ICO"
+BITMAP  ID_MAIN "..\\MEMSIZE2.BMP"
+
+ACCELTABLE ID_MAIN
+{
+  VK_F3,     IDM_EXIT,             VIRTUALKEY
+  VK_INSERT, IDM_COPY,             VIRTUALKEY,CONTROL
+  "H",       IDM_HIDE_CONTROLS,    ALT
+  "h",       IDM_HIDE_CONTROLS,    ALT
+  "C",       IDM_CONFIGURE,        ALT
+  "c",       IDM_CONFIGURE,        ALT
+  "R",       IDM_RESETAVERAGE,     ALT
+  "r",       IDM_RESETAVERAGE,     ALT
+  "E",       IDM_LAUNCHEMAILER,    ALT
+  "e",       IDM_LAUNCHEMAILER,    ALT
+}
+
+HELPSUBTABLE ID_MAIN
+{
+//
+//            Item ID                  Help Panel ID
+//
+  HELPSUBITEM IDM_RESET_DEFAULTS,      IDM_RESET_DEFAULTS
+  HELPSUBITEM IDM_HIDE_CONTROLS,       IDM_HIDE_CONTROLS
+  HELPSUBITEM IDM_CONFIGURE,           IDM_CONFIGURE
+  HELPSUBITEM IDM_RESETLOAD,           IDM_RESETLOAD
+  HELPSUBITEM IDM_RESETAVERAGE,        IDM_RESETAVERAGE
+  HELPSUBITEM IDM_RESETDRIVES,         IDM_RESETDRIVES
+  HELPSUBITEM IDM_LAUNCHEMAILER,       IDM_LAUNCHEMAILER
+  HELPSUBITEM IDM_COPY,                IDM_COPY
+  HELPSUBITEM IDM_ABOUT,               IDM_ABOUT
+  HELPSUBITEM IDM_HELP,                ID_MAIN
+  HELPSUBITEM IDM_EXIT,                IDM_EXIT
+}
+
+
+HELPTABLE ID_MAIN
+{
+//
+//         Window ID                 Help Sub-Table ID     Help Panel ID
+//
+  HELPITEM ID_MAIN,                  ID_MAIN,              ID_MAIN
+  HELPITEM FID_CLIENT,               ID_MAIN,              ID_MAIN
+  HELPITEM IDD_ABOUT,                ID_MAIN,              IDD_ABOUT
+  HELPITEM IDD_CONFIGURE,            ID_MAIN,              IDD_CONFIGURE
+  HELPITEM IDD_CONFIG_PAGE_ITEMS,    ID_MAIN,              IDD_CONFIG_PAGE_ITEMS
+  HELPITEM IDD_CONFIG_PAGE_OPTIONS1, ID_MAIN,              IDD_CONFIG_PAGE_OPTIONS1
+  HELPITEM IDD_CONFIG_PAGE_OPTIONS2, ID_MAIN,              IDD_CONFIG_PAGE_OPTIONS2
+  HELPITEM IDD_CONFIG_PAGE_COLORS,   ID_MAIN,              IDD_CONFIG_PAGE_COLORS
+  HELPITEM IDD_CONFIG_PAGE_ANCHOR,   ID_MAIN,              IDD_CONFIG_PAGE_ANCHOR
+  HELPITEM IDD_CONFIG_PAGE_DATEFMT,  ID_MAIN,              IDD_CONFIG_PAGE_DATEFMT
+  HELPITEM IDD_CONFIG_PAGE_POP31,    ID_MAIN,              IDD_CONFIG_PAGE_POP31
+  HELPITEM IDD_CONFIG_PAGE_POP32,    ID_MAIN,              IDD_CONFIG_PAGE_POP32
+  HELPITEM IDD_LABEL,                ID_MAIN,              IDD_LABEL
+  HELPITEM IDD_PROFILE_PATH,         ID_MAIN,              IDD_PROFILE_PATH
+}

@@ -1,0 +1,8 @@
+;
+;       NORSK.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Norwegian-language resources for MEMSIZE.'
+

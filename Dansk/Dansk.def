@@ -1,0 +1,8 @@
+;
+;       DANSK.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Danish-language resources for MEMSIZE.'
+

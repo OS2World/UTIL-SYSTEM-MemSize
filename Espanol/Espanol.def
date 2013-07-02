@@ -1,0 +1,8 @@
+;
+;   ESPANOL.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Spanish-language resources for MEMSIZE.'
+

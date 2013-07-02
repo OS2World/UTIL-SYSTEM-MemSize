@@ -1,0 +1,8 @@
+;
+;       JAPANESE.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Japanese-language resources for MEMSIZE.'
+

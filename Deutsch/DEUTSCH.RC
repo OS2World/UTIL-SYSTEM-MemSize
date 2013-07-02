@@ -1,0 +1,432 @@
+/***************************************************************** DEUTSCH.RC
+ *                                                                          *
+ *       Resourcendefinitionsdatei fÅr `Systemressourcen'                   *
+ *                                                                          *
+ ****************************************************************************/
+
+#define INCL_PM
+#define INCL_NLS
+#define INCL_WINSTDSPIN
+#include <os2.h>
+
+#include "memsize.h"
+
+CODEPAGE 850
+
+RCDATA 1 {      // CodePage identifier(s) that can be used.
+  850, 437, 0
+}
+
+POINTER 1 "..\\memsize2.ico"
+BITMAP 1 "..\\memsize2.bmp"
+
+/****************************************************************************
+ * Months: Januar, Februar, MÑrz, April, Mai, Juni,                         *
+ *   Juli, August, September, Oktober, November, Dezember.                  *
+ ****************************************************************************/
+
+DLGTEMPLATE IDD_ABOUT
+{
+  DIALOG "", IDD_ABOUT, 0, 0, 240, 108, FS_DLGBORDER
+  {
+    CTEXT "Systemressourcen 4.00"                    0, 10, 96, 220,  8
+    CTEXT "4 Juli 2001"                              0, 10, 88, 220,  8
+    CONTROL "#1",                                    0,  4, 80,   0,  0, WC_STATIC, SS_ICON | WS_VISIBLE
+    CTEXT "Systemressourcen-Monitor"                 0, 10, 72, 220,  8
+    CTEXT "Copyright ∏ Richard Papo, 1991-2001"      0, 10, 64, 220,  8
+    CTEXT "rpapo@mediaone.net"                       0, 10, 56, 220,  8
+    CTEXT "http://people.mw.mediaone.net/rpapo"      0, 10, 48, 220,  8
+    CTEXT "Deutsche öbersetzung Herbert Klaeren"     0, 10, 40, 220,  8
+    CTEXT "und Klaus Staedtler"                      0, 10, 32, 220,  8
+    DEFPUSHBUTTON "~OK"                         DID_OK,100,  8,  40, 16, WS_GROUP
+  }
+}
+
+MENU IDM_MENU
+{
+  MENUITEM "Standardwerte",             IDM_RESET_DEFAULTS
+  MENUITEM "Ohne Rahmen\tAlt+H",        IDM_HIDE_CONTROLS
+  MENUITEM "Konfiguration...\tAlt+C",   IDM_CONFIGURE
+  MENUITEM "Lastmessung zurÅcksetzen",  IDM_RESETLOAD
+  MENUITEM "Durchschnittliche Last zurÅcksetzen\tAlt+R", IDM_RESETAVERAGE
+  MENUITEM "Laufwerke zurÅcksetzen",    IDM_RESETDRIVES
+  MENUITEM "E-Mail Reader starten",     IDM_LAUNCHEMAILER
+  MENUITEM "Kopieren\tCtrl+Ins",        IDM_COPY
+  MENUITEM SEPARATOR
+  MENUITEM "Produktinformation",        IDM_ABOUT
+  MENUITEM "Hilfe\tF1",                 IDM_HELP, MIS_HELP
+  MENUITEM "Schlie·en\tF3",             IDM_EXIT
+}
+
+DLGTEMPLATE IDD_PROFILE_PATH
+{
+  DIALOG "Initalisierungspfad setzen", IDD_PROFILE_PATH, 50, 100, 320, 60, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR 
+  {
+    LTEXT "Geben Sie den vollen Pfad (inklusive Laufwerk) des Verzeichnisses", 0, 8, 48, 304, 8
+    LTEXT "ein, in dem die Initialisierungsdatei (INI) aufgehoben wird.",      0, 8, 40, 304, 8
+    ENTRYFIELD "",            IDD_PROF_ENTRY,       8, 28, 300,  8, ES_MARGIN
+    DEFPUSHBUTTON "~OK"       DID_OK,               8, 10,  32, 12, WS_GROUP
+    CONTROL "ESC=Abbruch"     DID_CANCEL,          44, 10,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=Hilfe"         0,                 112, 10,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+    CTEXT "",                 IDD_PROF_ERR,         8,  2, 300,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000
+  }
+}
+
+DLGTEMPLATE IDD_CONFIGURE
+{
+  DIALOG "Konfiguration", IDD_CONFIGURE, 10, 10, 230, 180, FS_DLGBORDER, FCF_SYSMENU | FCF_SIZEBORDER | FCF_TITLEBAR | FCF_NOMOVEWITHOWNER | FCF_CLOSEBUTTON
+  {
+    CONTROL "",                                  IDD_CONFIG_NOTEBOOK,      0,  0, 230,180, WC_NOTEBOOK, WS_VISIBLE | BKS_BACKPAGESTR | BKS_MAJORTABTOP | BKS_ROUNDEDTABS | BKS_SOLIDBIND | BKS_STATUSTEXTLEFT | BKS_TABTEXTCENTER | BKS_TABBEDDIALOG
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ITEMS
+{
+  DIALOG "", IDD_CONFIG_PAGE_ITEMS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Angezeigte Details",                                    0,   0, 122, 199,  8
+    LISTBOX                                         IDD_CONFIG_ITEMS,   0,   1, 199,121, LS_MULTIPLESEL | LS_HORZSCROLL
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS1
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS1, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    AUTOCHECKBOX "Ohne Rahmen",              IDD_CONFIG_HIDECONTROLS,   0, 120, 200, 10
+    AUTOCHECKBOX "Immer oberstes Fenster",          IDD_CONFIG_FLOAT,   0, 110, 200, 10
+    AUTOCHECKBOX "Animation",                     IDD_CONFIG_ANIMATE,   0, 100, 200, 10
+    AUTOCHECKBOX "Dialog Border",            IDD_CONFIG_DIALOGBORDER,   0,  90, 200, 10
+    AUTOCHECKBOX "Tabellenformat",                  IDD_CONFIG_TABLE,   0,  80, 200, 10
+    AUTOCHECKBOX "Stundenschlag",                   IDD_CONFIG_CHIME,   0,  70, 200, 10
+    AUTOCHECKBOX "Laufwerke anzeigen",         IDD_CONFIG_SHOWDRIVES,   0,  60, 200, 10 
+    AUTOCHECKBOX "Netzwerklaufwerke anzeigen",IDD_CONFIG_SHOWREMOTES,   0,  50, 200, 10
+    AUTOCHECKBOX "Dateisystemtypen anzeigen",      IDD_CONFIG_FSNAME,   0,  40, 200, 10
+    AUTOCHECKBOX "DatentrÑgernamen anzeigen",      IDD_CONFIG_DLABEL,   0,  30, 200, 10
+    AUTOCHECKBOX "Sekunden anzeigen",             IDD_CONFIG_SECONDS,   0,  20, 200, 10
+    AUTOCHECKBOX "Theseus/2 benutzen",            IDD_CONFIG_THESEUS,   0,  10, 200, 10
+    AUTOCHECKBOX "Uhr zentrieren",           IDD_CONFIG_CENTER_CLOCK,   0,   0, 200, 10
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_OPTIONS2
+{
+  DIALOG "", IDD_CONFIG_PAGE_OPTIONS2, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "'K'ilobytes anzeigen:",                              0,   0,  88, 140, 40
+    AUTORADIOBUTTON "Nie",                    IDD_CONFIG_SHOWK_NEVER,   4, 110,  70, 10
+    AUTORADIOBUTTON ">= 512K",             IDD_CONFIG_SHOWK_ABOVE512,   4, 100,  70, 10
+    AUTORADIOBUTTON "Immer",                 IDD_CONFIG_SHOWK_ALWAYS,   4,  90,  70, 10
+    AUTOCHECKBOX "K=~1024",                    IDD_CONFIG_SHOW_TRUEK,  74, 110,  62, 10
+    AUTOCHECKBOX "'M'egabytes",            IDD_CONFIG_SHOW_MEGABYTES,  74, 100,  62, 10
+    AUTOCHECKBOX "'~G'igabytes",           IDD_CONFIG_SHOW_GIGABYTES,  74,  90,  62, 10
+
+    LTEXT "Monitor-PrioritÑt",                                     0,   0,  74, 110,  8
+    CONTROL "",                                  IDD_CONFIG_PRIORITY, 118,  72,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "Weckerintervall",                                       0,   0,  62, 110,  8
+    LTEXT "(Sekunden x0.1)",                                       0,   0,  54, 110,  8
+    CONTROL "",                                     IDD_CONFIG_TIMER, 118,  56,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+
+    LTEXT "Durchschnittsinterval",                                 0,   0,  46, 110,  8
+    LTEXT "(Sekunden)",                                            0,   0,  38, 110,  8
+    CONTROL "",                                   IDD_CONFIG_AVERAGE, 118,  40,  36,  8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_COLORS
+{
+  DIALOG "", IDD_CONFIG_PAGE_COLORS, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    CTEXT "Normal",                                IDD_CONFIG_NORMAL,   0,  96, 200, 30, DT_VCENTER
+    CTEXT "Warnung",                              IDD_CONFIG_WARNING,   0,  63, 200, 30, DT_VCENTER
+    CTEXT "Fehler",                                 IDD_CONFIG_ERROR,   0,  30, 200, 30, DT_VCENTER
+    CTEXT "",                                        IDD_CONFIG_FONT,   0,   0, 200, 27, DT_VCENTER
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_ANCHOR
+{
+  DIALOG "", IDD_CONFIG_PAGE_ANCHOR, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    GROUPBOX "",                                                   0,  10,  40,  88, 80
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BL,  10,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_BR,  91,  39,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TL,  10, 110,   8,  8
+    AUTORADIOBUTTON "",                                IDD_CONFIG_TR,  91, 110,   8,  8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_DATEFMT
+{
+  DIALOG "", IDD_CONFIG_PAGE_DATEFMT, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    ENTRYFIELD "",                                  IDD_CONFIG_DATEFMT,  2,118, 196,  8, ES_MARGIN
+    LTEXT "Beispiel:",                                               0,  0,106,  32,  8
+    LTEXT "",                                       IDD_CONFIG_DATESMP, 36,106, 164,  8
+    LTEXT "Eingetragener Text wird zum Ergebnis     ",               0,  0, 94, 200,  8
+    LTEXT "kopiert, mit Ausnahme der folgenden      ",               0,  0, 86, 200,  8
+    LTEXT "Spezial Codes:                           ",               0,  0, 78, 200,  8
+    GROUPBOX "Datum Formatierungs Codes",                            0,  0,  0, 200, 74
+    LISTBOX                                       IDD_CONFIG_DATECODES,  4,  4, 190, 62
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP31
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP31, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Server Name:",                                0,  0, 118, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPSERV,100, 118, 96, 8, ES_MARGIN
+    LTEXT "Benutzer Name:",                              0,  0, 106, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPUSER,100, 106, 96, 8, ES_MARGIN
+    LTEXT "Passwort:",                                   0,  0,  94, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPSWD,100,  94, 96, 8, ES_MARGIN | ES_UNREADABLE
+    LTEXT "Port Nummer (opt):",                          0,  0,  82, 96, 8
+    ENTRYFIELD "",                      IDD_CONFIG_POPPORT,100,  82, 96, 8, ES_MARGIN
+    AUTOCHECKBOX "Force I.P. Address",  IDD_CONFIG_POPFORC,  0,  70,200, 8
+    AUTOCHECKBOX "Benutze APOP",        IDD_CONFIG_POPAPOP,  0,  58,200, 8
+    PUSHBUTTON "öberprÅfen",            IDD_CONFIG_POPTEST,  5,  12, 60, 14
+    PUSHBUTTON "~Akzeptieren",          IDD_CONFIG_POPACPT, 70,  12, 60, 14
+    PUSHBUTTON "~Reset",                IDD_CONFIG_POPREST,135,  12, 60, 14
+    CTEXT "",                           IDD_CONFIG_POPSTAT,  0,   0,200, 8
+  }
+}
+
+DLGTEMPLATE IDD_CONFIG_PAGE_POP32
+{
+  DIALOG "", IDD_CONFIG_PAGE_POP32, 0, 0, 200, 134, FS_NOBYTEALIGN | NOT FS_DLGBORDER
+  {
+    LTEXT "Polling Intervall",                           0,  0, 118,110, 8
+    LTEXT "(Sekunden)",                                  0,  0, 110,110, 8
+    CONTROL "",                         IDD_CONFIG_POPPOLL,160, 112, 36, 8,
+      WC_SPINBUTTON,
+      WS_TABSTOP | WS_VISIBLE | SPBS_MASTER | SPBS_JUSTRIGHT | SPBS_NUMERICONLY | SPBS_FASTSPIN 
+    LTEXT "E-mail Reader (komplette Kommandozeile):",          0,  0,  98,200, 8
+    ENTRYFIELD "",                    IDD_CONFIG_POPREADER,  4,  86,192, 8, ES_MARGIN
+    AUTOCHECKBOX "Alarm wenn Mail ankommt?", IDD_CONFIG_POPALERT,0,70,200,10
+    LTEXT "Mail Alarm Sound (WAV):", IDD_CONFIG_POPWAVTEXT,  0,  58,200, 8
+    ENTRYFIELD "",                   IDD_CONFIG_POPWAVFILE,  4,  46,192, 8, ES_MARGIN
+  }
+}
+
+DLGTEMPLATE IDD_LABEL
+{
+  DIALOG "Detail-Attribute", IDD_LABEL, 10, 10, 230, 120, FS_DLGBORDER, FCF_DLGBORDER | FCF_TITLEBAR 
+  {
+    LTEXT "Standard-Bezeichnung:",                          0,   8, 108, 100,  8
+    LTEXT "",                              IDD_LABEL_DEFLABEL, 112, 108, 110,  8
+    PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000
+
+    LTEXT "Neue Bezeichnung:",                              0,   8,  96, 100,  8
+    ENTRYFIELD "",                         IDD_LABEL_NEWLABEL, 112,  96, 110,  8, ES_MARGIN
+
+    GROUPBOX "Thresholds",                                  0,   4,  20, 220, 72
+
+    AUTOCHECKBOX "Benutzen",                 IDD_LABEL_ENABLE,   8,  74, 110,  8
+
+    LTEXT "Warnschwelle:",                                  0,   8,  62, 100,  8
+    ENTRYFIELD "",                    IDD_LABEL_WARNING_VALUE,  16,  50,  84,  8, ES_MARGIN
+    SLIDER                           IDD_LABEL_WARNING_SLIDER, 112,  50, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    LTEXT "Fehlerschwelle:",                                0,   8,  38, 100,  8
+    ENTRYFIELD "",                      IDD_LABEL_ERROR_VALUE,  16,  26,  84,  8, ES_MARGIN
+    SLIDER                             IDD_LABEL_ERROR_SLIDER, 112,  26, 110, 22, WS_GROUP | SLS_BOTTOM | SLS_SNAPTOINCREMENT
+      CTLDATA 12, 0, 101, 0, 0, 0
+
+    DEFPUSHBUTTON "~OK",                               DID_OK,   8,   4,  32, 12, WS_GROUP
+    CONTROL "~Standard"                     IDD_LABEL_DEFAULT,  44,   4,  56, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "Esc=Abbruch"                          DID_CANCEL, 104,   4,  64, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON
+    CONTROL "F1=Hilfe"                                      0, 172,   4,  52, 12, WC_BUTTON, WS_VISIBLE | BS_PUSHBUTTON | BS_HELP
+  }
+}
+
+
+STRINGTABLE
+{
+  IDS_HELPTITLE                        "'Systemressourcen' Hilfe"
+  IDS_TITLE                            "Systemressourcen"
+
+  IDS_RESET_DEFAULTS                   "Standardwerte"
+  IDS_HIDE_CONTROLS                    "Ohne Rahmen\tAlt+H"
+  IDS_CONFIGURE                        "Konfiguration\tAlt+C"
+  IDS_RESETLOAD                        "Lastmessung zurÅcksetzen"
+  IDS_RESETAVERAGE                     "Durchschnittliche Last zurÅcksetzen\tAlt+R"
+  IDS_RESETDRIVES                      "Laufwerke zurÅcksetzen"
+  IDS_LAUNCHEMAILER                    "E-Mail Reader starten"
+  IDS_COPY                             "Kopieren\tCtrl+Ins"
+  IDS_ABOUT                            "Produktinformation"
+  IDS_HELP                             "Hilfe\tF1"
+
+  IDS_CLOCK                            "Datum/Zeit"
+  IDS_ELAPSED                          "Abgelaufene Zeit"
+  IDS_MESSAGECOUNT                     "Messages Waiting"
+  IDS_MEMORY                           "Freier physischer Speicher"
+  IDS_VIRTUAL                          "Freier virtueller Speicher"
+  IDS_SWAPSIZE                         "Swap-Grî·e"
+  IDS_SWAPFREE                         "Freier Swap-Platz"
+  IDS_SWAPSLACK                        "Unbenutzter Swap-Platz"
+  IDS_SPOOLSIZE                        "Spool-Grî·e"
+  IDS_CPULOAD                          "CPU-Last"
+  IDS_AVERAGELOAD                      "Durchschnittliche Last"
+  IDS_BATTERY                          "Batterie"
+  IDS_TASKCOUNT                        "Anzahl aktiver Tasks"
+  IDS_PROCESSCOUNT                     "Proze·anzahl"
+  IDS_THREADCOUNT                      "Thread-Anzahl"
+  IDS_TOTALFREE                        "Insgesamt freier Plattenplatz"
+  IDS_DRIVE_FREE                       "Auf Laufwerk %c: frei"
+
+  IDS_DRIVEERROR                       "FEHLER"
+
+  IDS_PARAMETERLIST                    "GÅltige Startparameter:\n"
+                                       "  RESET: Profil vor Start zurÅcksetzen."
+                                       "  EXCLUDE:abc... Laufwerke a,b,c... ausschlie·en"
+
+  IDS_PARMS_RESET                      "RESET"
+  IDS_PARMS_EXCLUDE                    "EXCLUDE:"
+
+  IDS_ERROR_PRFOPENPROFILE             "FEHLER: Initialisierungsdatei kann nicht erîffnet werden."
+  IDS_ERROR_CREATEHELP                 "FEHLER: Hilfe-Instanz kann nicht angelegt werden.  Status=%08lX."
+  IDS_ERROR_CREATEFRAME                "FEHLER: Kann das Rahmenfenster nicht anlegen.  Status=%08lX."
+  IDS_ERROR_WINREGISTERCLASS           "FEHLER: Fensterklasse '%s' kann nicht angemeldet werden.  Status=%08lX."
+  IDS_ERROR_CREATECLIENT               "FEHLER: Kann das Klientenfenster nicht anlegen.  Status=%08lX."
+  IDS_ERROR_DOSGETCTRYINFO             "DosGetCtryInfo fehlgeschlagen.  Status=%d."
+  IDS_ERROR_BADCODEPAGE                "FEHLER: Kann nicht zur Zeichenumsetztabelle %i umschalten."
+
+  IDS_DAY                              "Tag"
+  IDS_DAYS                             "Tage"
+
+  IDS_DAYSOFWEEK                       "SonMonDieMitDonFreSam"
+  IDS_DATEFMT_DAY0                     "Sonntag"
+  IDS_DATEFMT_DAY1                     "Montag"
+  IDS_DATEFMT_DAY2                     "Dienstag"
+  IDS_DATEFMT_DAY3                     "Mittwoch"
+  IDS_DATEFMT_DAY4                     "Donnerstag"
+  IDS_DATEFMT_DAY5                     "Freitag"
+  IDS_DATEFMT_DAY6                     "Samstag"
+
+  IDS_DATEFMT_MONS                     "JanFebMarAprMaiJunJulAugSepOktNovDez"
+  IDS_DATEFMT_MONTH1                   "Januar"
+  IDS_DATEFMT_MONTH2                   "Februar"
+  IDS_DATEFMT_MONTH3                   "MÑrz"
+  IDS_DATEFMT_MONTH4                   "April"
+  IDS_DATEFMT_MONTH5                   "Mai"
+  IDS_DATEFMT_MONTH6                   "Juni"
+  IDS_DATEFMT_MONTH7                   "Juli"
+  IDS_DATEFMT_MONTH8                   "August"
+  IDS_DATEFMT_MONTH9                   "September"
+  IDS_DATEFMT_MONTH10                  "Oktober"
+  IDS_DATEFMT_MONTH11                  "November"
+  IDS_DATEFMT_MONTH12                  "Dezember"
+
+  IDS_APM_ERROR                        "N/A" // Nicht verfÅgbar (Batteriestatus nicht verfÅgbar)
+  IDS_APM_AC                           "A/C" // Netzadapter (Batterie nicht verwendet)
+  IDS_APM_CHARGING                     "Laden" // Batterie wird geladen
+
+  IDS_CONFIG_PAGE_ITEMS                "Details"
+  IDS_CONFIG_PAGE_OPTIONS              "Optionen"
+  IDS_CONFIG_PAGE_COLORS               "Farben"
+  IDS_CONFIG_PAGE_ANCHOR               "Anker"
+  IDS_CONFIG_PAGE_DATEFMT              "Zeit/Datum"
+  IDS_CONFIG_PAGE_POP3                 "E-Mail"
+
+  IDS_PAGE                             "Seite"
+  IDS_OF                               "von"
+  IDS_CONFIG_FONT_TEXT                 "Font: %s"
+
+  IDS_POP_NOSERVER                     "Server nicht spezifiziert."
+  IDS_POP_NOUSERNAME                   "Benutzer Name nicht spezifiziert."
+  IDS_POP_NOPASSWORD                   "Passwort nicht spezifiziert."
+  IDS_POP_HASMESSAGES                  "Verbunden.  %i Nachrichten warten."
+  IDS_POP_HASONEMESSAGE                "Verbunden.  Eine Nachricht wartet."
+  IDS_POP_HASNOMESSAGES                "Verbunden.  Keine Nachrichten."
+  IDS_POP_ERROR1                       "FEHLER: WinSock nicht initialisiert."
+  IDS_POP_ERROR2                       "FEHLER: Socket kann nicht erzeugt werden."
+  IDS_POP_ERROR3                       "FEHLER: Socket kann nicht angesprochen werden."
+  IDS_POP_ERROR4                       "FEHLER: Server kann nicht verbunden werden."
+  IDS_POP_ERROR5                       "FEHLER: Kann die Adresse des mail server nicht auflîsen."
+  IDS_POP_ERROR6                       "FEHLER: Kann nicht ins Mailverzeichnis einloggen."
+  IDS_POP_ERROR7                       "FEHLER: STAT Kommando gescheitert."
+  IDS_POP_ERRORX                       "Unbekannter POP3 Fehler."
+  IDS_POP_TITLE                        "POP Fehler"
+  IDS_POP_OVERRIDE                     "Unable to contact server.  Save these parameters anyway?"
+
+  IDS_EXCEPTION  "Systemressourcen hatte einen schweren Fehler.  "
+                 "Bitte schicken Sie die Datei %s an den Autor Åber Internet rpapo@mediaone.net.  "
+                 "Bitte beschreiben Sie, was Sie gerade mit Ihrem System taten."
+}
+
+STRINGTABLE 
+{
+   IDS_DATECODES_00 "%a    AbgekÅrzter Wochentag"
+   IDS_DATECODES_01 "%A    VollstÑndiger Wochentag"
+   IDS_DATECODES_02 "%b    AbgekÅrzter Monatsname"
+   IDS_DATECODES_03 "%B    VollstÑndiger Monatsname"
+   IDS_DATECODES_04 "%c    Lokales Datum & Zeit"
+   IDS_DATECODES_05 "%d    Monatstag"
+   IDS_DATECODES_06 "%D    Datum MM/DD/YY"
+   IDS_DATECODES_07 "%h    Lokal abgekÅrzter Monat"
+   IDS_DATECODES_08 "%H    Stunde (24Std.)"
+   IDS_DATECODES_09 "%I    Stunde (12Std.)"
+   IDS_DATECODES_10 "%j    Tag"
+   IDS_DATECODES_11 "%m    Monat"
+   IDS_DATECODES_12 "%M    Minute"
+   IDS_DATECODES_13 "%p    Local AM/PM"
+   IDS_DATECODES_14 "%r    Zeit (12Std.)"
+   IDS_DATECODES_15 "%S    Sekunden"
+   IDS_DATECODES_16 "%T    Zeit (24Std.)"
+   IDS_DATECODES_17 "%U    Jahreswoche (Sonntag Beginn)"
+   IDS_DATECODES_18 "%w    Wochentag"
+   IDS_DATECODES_19 "%W    Jahreswoche (Montag Beginn)"
+   IDS_DATECODES_20 "%x    Lokales Datum"
+   IDS_DATECODES_21 "%X    Lokale Zeit"
+   IDS_DATECODES_22 "%y    Jahr 2-stellig"
+   IDS_DATECODES_23 "%Y    Jahr 4-stellig"
+   IDS_DATECODES_24 "%Z %z Zeitzone"
+   IDS_DATECODES_25 "%%    %"
+}
+
+STRINGTABLE
+{
+  IDS_HMERR                            "Fehler im Hilfe-Manager"
+  IDS_HMERR_EXTHELPUNDEFINED           "Erweiterte Hilfe undefiniert."
+  IDS_HMERR_NO_FRAME_WND_IN_CHAIN      "Kein Rahmenfenster in der Kette."
+  IDS_HMERR_INVALID_ASSOC_APP_WND      "UngÅltige Fensternummer zugeordnet."
+  IDS_HMERR_INVALID_ASSOC_HELP_IN      "UngÅltige Hilfe-Instanz zugeordnet."
+  IDS_HMERR_INVALID_DESTROY_HELP_      "UngÅltige Fensternummer zur Freigabe."
+  IDS_HMERR_NO_HELP_INST_IN_CHAIN      "Keine Hilfe-Instanz in der Fensterkette."
+  IDS_HMERR_INVALID_HELP_INSTANCE      "UngÅltige Hilfe-Instanz-Nummer."
+  IDS_HMERR_INVALID_QUERY_APP_WND      "UngÅltige Anwendungsfensternummer in der Anfrage."
+  IDS_HMERR_HELP_INST_CALLED_INVA      "UngÅltige Hilfe-Instanz aufgerufen."
+  IDS_HMERR_HELPTABLE_UNDEFINE         "Hilfe-Tabelle undefiniert."
+  IDS_HMERR_HELP_INSTANCE_UNDEFIN      "Hilfe-Instanz undefiniert."
+  IDS_HMERR_HELPITEM_NOT_FOUND         "Hilfe-Eintrag nicht gefunden."
+  IDS_HMERR_INVALID_HELPSUBITEM_S      "UngÅltige Grî·e des Hilfe-Untereintrags."
+  IDS_HMERR_HELPSUBITEM_NOT_FOUND      "Hilfe-Untereintrag nicht gefunden."
+  IDS_HMERR_INDEX_NOT_FOUND            "Kein Index in der Bibliotheksdatei."
+  IDS_HMERR_CONTENT_NOT_FOUND          "Inhaltsverzeichnis nicht gefunden."
+  IDS_HMERR_OPEN_LIB_FILE              "Hilfe-Bibliothek kann nicht geîffnet werden."
+  IDS_HMERR_READ_LIB_FILE              "Hilfe-Bibliothek kann nicht gelesen werden."
+  IDS_HMERR_CLOSE_LIB_FILE             "Hilfe-Bibliothek kann nicht geschlossen werden."
+  IDS_HMERR_INVALID_LIB_FILE           "Hilfe-Bibliothek hat ungÅltiges Format."
+  IDS_HMERR_NO_MEMORY                  "Kein Speicher mehr."
+  IDS_HMERR_ALLOCATE_SEGMENT           "Segment kann nicht alloziert werden."
+  IDS_HMERR_FREE_MEMORY                "Speicher kann nicht freigegeben werden."
+  IDS_HMERR_PANEL_NOT_FOUND            "Hilfe-Tafel nicht gefunden."
+  IDS_HMERR_DATABASE_NOT_OPEN          "Hilfe-Datenbank nicht offen."
+  IDS_HMERR_UNKNOWN                    "--- Unbekannter Fehler ---"
+  IDS_HELPMODE_FRAME                   "Rahmen"
+  IDS_HELPMODE_MENU                    "MenÅ"
+  IDS_HELPMODE_WINDOW                  "Fenster"
+  IDS_HELPMODE_UNKNOWN                 "Unbekannt"
+  IDS_HELPSUBITEMNOTFOUND              "Hilfe-Untereintrag nicht gefunden: Modus='%s' Thema=%u Unterthema=%u"
+}
+

@@ -1,0 +1,8 @@
+;
+;       DEUTSCH.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'German-language resources for MEMSIZE.'
+

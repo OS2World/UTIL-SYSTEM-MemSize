@@ -1,0 +1,27 @@
+/**************************************************************** MEMSIZEW.RC
+ *                                                                          *
+ *           System Resources monitor resource definition file              *
+ *                                                                          *
+ *          This file contains language-independent definitions.            *
+ *                                                                          *
+ ****************************************************************************/
+
+#include "System.h"
+#include "MemSize.h"
+
+MEMSIZEW ICON   "..\\MEMSIZEW.ICO"
+
+MEMSIZEW BITMAP "..\\MEMSIZEW.BMP"
+
+MEMSIZEW ACCELERATORS
+BEGIN
+  VK_F3,     IDM_EXIT,             VIRTKEY
+  VK_INSERT, IDM_COPY,             VIRTKEY,CONTROL
+  "H",       IDM_HIDE_CONTROLS,    ALT
+  "h",       IDM_HIDE_CONTROLS,    ALT
+  "C",       IDM_CONFIGURE,        ALT
+  "c",       IDM_CONFIGURE,        ALT
+  "R",       IDM_RESETAVERAGE,     ALT
+  "r",       IDM_RESETAVERAGE,     ALT
+END
+

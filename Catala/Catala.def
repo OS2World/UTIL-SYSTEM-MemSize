@@ -1,0 +1,8 @@
+;
+;   CATALA.DLL module definition file
+;
+
+LIBRARY  MEMSIZE2
+
+DESCRIPTION 'Catalan-language resources for MEMSIZE.'
+

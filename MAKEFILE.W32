@@ -1,0 +1,145 @@
+# Makefile for use with WATCOM C/C++
+
+.SILENT
+.ERASE
+.EXTENSIONS:
+.EXTENSIONS: .exe .dll .def
+.EXTENSIONS: .obj .cpp .c .asm .h
+.EXTENSIONS: .res .rcw .ico .bmp
+.EXTENSIONS: .inf .hlp .ipf
+
+.asm:..
+.bmp:..
+.c:..
+.cpp:..
+.def:..
+.h:..
+.ico:..
+.ipf:..
+.rcw:..
+
+EXE_DESTINATION = ..
+CFLAGS = /4s /bm /D2 /od /w4 /zp1 /zq /i=.. $(%CPP_OPTIONS) /bt=$(%SYSTEM)
+
+ALL : English SNPSHOTW.EXE MEMSIZEW.EXE .SYMBOLIC
+    %NULL
+
+{.}.c.obj : .AUTODEPEND
+    Echo Building $[* . . .
+    wpp386 $(CFLAGS) $[*.c
+
+{.}.cpp.obj : .AUTODEPEND
+    Echo Building $[* . . .
+    wpp386 $(CFLAGS) $[*.cpp
+
+{.}.rcw.res : .AUTODEPEND
+    Echo Building resources . . .
+    $(%RC) -r $(%RCFLAGS) $[*.rc $[&.res
+
+{.}.hlp.inf :
+    If Exist $[*.inf Erase $[*.inf
+    HLP2INF $[*.hlp
+
+OBJS = CANVAS.OBJ &
+    CHKDRIVE.OBJ &
+    CONFIG.OBJ &
+    COUNTRY.OBJ &
+    DATEFMT.OBJ &
+    DDE.OBJ &
+    DEBUG.OBJ &
+    DIALOG.OBJ &
+    EVENT.OBJ &
+    EXCEPT.OBJ &
+    HELPWIN.OBJ &
+    INIDATA.OBJ &
+    ITEMS.OBJ &
+    MEMSIZE.OBJ &
+    MODULE.OBJ &
+    MUTEX.OBJ &
+    MUX.OBJ &
+    PROC.OBJ &
+    PROFILE.OBJ &
+    PROFILE2.OBJ &
+    RECTANGL.OBJ &
+    RESTRING.OBJ &
+    SUPPORT.OBJ &
+    SYSTEM.OBJ &
+    THREAD.OBJ &
+    WINDOW.OBJ
+
+MEMSIZEW.exe : $(OBJS) ..\MakeFile.W32 MEMSIZEW.lnk MEMSIZEW.res
+    Echo Linking $^& . . .
+    wlink @$^*.lnk
+    Echo Attaching resources . . .
+    wrc $^&.res $^&.exe
+    copy $^&.exe $(EXE_DESTINATION)
+
+MEMSIZEW.lnk : ..\MakeFile.W32
+    %create $^@
+    %append $^@ system nt_win
+    %append $^@ name $^&
+    %append $^@ option map
+    %append $^@ option verbose
+    %append $^@ option caseexact
+    %append $^@ option stack=128K
+    for %i in ($(OBJS)) do %append $^@ file %i
+
+OBJS2 = CHKDRIVE.OBJ &
+    COUNTRY.OBJ &
+    DATEFMT.OBJ &
+    DEBUG.OBJ &
+    EXCEPT.OBJ &
+    INIDATA.OBJ &
+    MODULE.OBJ &
+    MUTEX.OBJ &
+    MUX.OBJ &
+    PROFILE.OBJ &
+    RESTRING.OBJ &
+    SNAPSHOT.OBJ &
+    SYSTEM.OBJ
+
+SNPSHOTW.exe : $(OBJS2) SNPSHOTW.lnk
+    Echo Linking $^& . . .
+    wlink @$^*.lnk
+    copy $^&.exe $(EXE_DESTINATION)
+
+SNPSHOTW.lnk : ..\MakeFile.W32
+    %create $^@
+    %append $^@ name $^&
+    %append $^@ system nt
+    %append $^@ debug all
+    %append $^@ option map
+    %append $^@ option verbose
+    %append $^@ option caseexact
+    %append $^@ option stack=128K
+    %append $^@ library th32
+    for %i in ($(OBJS2)) do %append $^@ file %i
+
+
+# Stub for all resource DLLs.
+
+Dll.obj : Dll.cpp .AUTODEPEND
+    Echo Building $[* . . .
+    wpp386 $(CFLAGS) /bd $[*.cpp
+
+
+# English-language resources.
+
+English : English.dll .SYMBOLIC
+
+English.dll : Dll.obj English.res English.lnk
+    Echo Linking $^& . . .
+    wlink @$^*.lnk 
+    wrc $^&.res $^&.dll 
+
+English.lnk : ..\MakeFile.w32
+    %create $^@
+    %append $^@ name $^&
+    %append $^@ system nt_dll
+    %append $^@ option verbose
+    %append $^@ option caseexact
+    %append $^@ file Dll.obj
+
+English.res : English.rcw MEMSIZE.H MEMSIZEW.BMP MEMSIZEW.ICO
+    wrc $(%RCFLAGS) -r $[*.rcw /fo=$^&.res
+

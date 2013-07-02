@@ -1,0 +1,9 @@
+Things to do:
+
+(1) Add socket connect timeout logic.
+
+(2) Complete the Win32 conversion.
+
+(3) Add option for configuring the time/date field's justification
+    (left/center/right).
+
